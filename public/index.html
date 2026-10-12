@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineVault.LK | Personal Cinema Library & Media Server</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+  <link rel="stylesheet" href="style.css?v=14">
+</head>
+<body>
+  <!-- AUTH / LOCK OVERLAY -->
+  <div id="authOverlay" class="auth-overlay active">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="brand-logo">
+          <i class="fa-solid fa-play-circle text-crimson"></i>
+          <span>CineVault<span class="logo-lk">.LK</span></span>
+        </div>
+      </div>
+
+      <form id="loginForm" class="auth-form" onsubmit="handleLogin(event); return false;">
+        <div class="input-group">
+          <label><i class="fa-solid fa-user"></i> Username</label>
+          <input type="text" id="loginUser" value="shehan" placeholder="Enter username" required>
+        </div>
+        <div class="input-group">
+          <label><i class="fa-solid fa-lock"></i> Password</label>
+          <input type="password" id="loginPass" value="5566" placeholder="Enter password" required>
+        </div>
+        <div class="auth-options">
+          <a href="#" id="quickAccessLink" onclick="handleLogin(); return false;">Forgot Password? / Quick Login</a>
+        </div>
+        <button type="button" class="btn btn-crimson btn-block" id="btnLoginSubmit" onclick="handleLogin(event)">
+          <i class="fa-solid fa-right-to-bracket"></i> Secure Access Login
+        </button>
+      </form>
+      <div class="auth-footer">
+        <p><i class="fa-solid fa-shield-halved"></i> 256-Bit Encrypted Personal Media Server</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APPLICATION LAYOUT -->
+  <div class="app-layout">
+    <!-- TOP NAVIGATION BAR -->
+    <header class="navbar">
+      <div class="nav-left">
+        <div class="brand-logo">
+          <i class="fa-solid fa-play-circle text-crimson"></i>
+          <span>CineVault<span class="logo-lk">.LK</span></span>
+        </div>
+        <nav class="nav-links">
+          <button class="nav-link active" data-tab="all"><i class="fa-solid fa-house"></i> Home</button>
+          <button class="nav-link" data-tab="tamil"><i class="fa-solid fa-film"></i> Tamil</button>
+          <button class="nav-link" data-tab="hindi"><i class="fa-solid fa-film"></i> Hindi</button>
+          <button class="nav-link" data-tab="english"><i class="fa-solid fa-film"></i> English</button>
+          <button class="nav-link" data-tab="tv"><i class="fa-solid fa-tv"></i> TV Series</button>
+        </nav>
+      </div>
+
+      <div class="nav-right">
+        <div id="navUploadProgress" class="nav-upload-progress" style="display: none; align-items: center; gap: 8px; background: rgba(229, 9, 20, 0.15); border: 1px solid rgba(229, 9, 20, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; color: #fff; cursor: pointer;" onclick="document.getElementById('btnUploadModal').click()" title="Click to view upload progress details">
+          <i class="fa-solid fa-spinner fa-spin text-crimson"></i>
+          <span id="navUploadText">Uploading 0%</span>
+        </div>
+        <button class="btn btn-crimson" id="btnUploadModal">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Upload Movie
+        </button>
+        <div class="user-profile">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" alt="User Avatar" class="avatar">
+          <div class="user-info">
+            <span class="user-name">Shehan</span>
+            <span class="user-status"><i class="fa-solid fa-circle text-success"></i> Vault Online</span>
+          </div>
+          <button class="btn-icon" id="btnLogout" title="Lock Library"><i class="fa-solid fa-lock"></i></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+      <!-- TOP SEARCH & FILTER BAR -->
+      <section class="section-container">
+        <div class="filter-toolbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search movies by title, director, cast...">
+            <button class="clear-search" id="clearSearch" style="display:none"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+
+          <div class="filter-controls">
+            <select id="genreFilter" class="filter-select">
+              <option value="all">All Genres</option>
+              <option value="Action">Action</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Sci-Fi">Sci-Fi</option>
+              <option value="Drama">Drama</option>
+              <option value="Thriller">Thriller</option>
+              <option value="Crime">Crime</option>
+              <option value="Biography">Biography</option>
+            </select>
+
+            <select id="qualityFilter" class="filter-select">
+              <option value="all">All Quality</option>
+              <option value="1080p">1080p HD</option>
+              <option value="720p">720p HD</option>
+              <option value="4K">4K Ultra HD</option>
+              <option value="WEB-DL">WEB-DL</option>
+              <option value="BluRay">BluRay</option>
+            </select>
+
+            <select id="sortFilter" class="filter-select">
+              <option value="added">Recently Added</option>
+              <option value="rating">Highest Personal Rating</option>
+              <option value="year">Release Year (Newest)</option>
+              <option value="title">Title (A-Z)</option>
+            </select>
+
+            <div class="view-toggle">
+              <button class="view-btn active" id="viewGrid" title="Grid View"><i class="fa-solid fa-grid-2"></i> Grid</button>
+              <button class="view-btn" id="viewList" title="List View"><i class="fa-solid fa-list"></i> List</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ONLY MOVIE LIST GRID -->
+        <div class="movies-grid" id="moviesContainer"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- CINESUBZ MOVIE DETAILS & STREAMING MODAL (SCREENSHOT EXACT MATCH) -->
+  <div id="playerModal" class="modal-overlay">
+    <div class="modal-card modal-xl cinesubz-detail-card">
+      <!-- TOP NAVIGATION BAR INSIDE FULL PAGE VIEW -->
+      <header class="navbar cs-modal-navbar">
+        <div class="nav-left">
+          <div class="brand-logo">
+            <i class="fa-solid fa-play-circle text-crimson"></i>
+            <span>CineVault<span class="logo-lk">.LK</span></span>
+          </div>
+          <nav class="nav-links">
+            <button class="nav-link active btn-modal-nav-home" id="btnModalNavHome"><i class="fa-solid fa-house"></i> Home</button>
+            <button class="nav-link btn-modal-nav-tab" data-tab="tamil"><i class="fa-solid fa-film"></i> Tamil</button>
+            <button class="nav-link btn-modal-nav-tab" data-tab="hindi"><i class="fa-solid fa-film"></i> Hindi</button>
+            <button class="nav-link btn-modal-nav-tab" data-tab="english"><i class="fa-solid fa-film"></i> English</button>
+            <button class="nav-link btn-modal-nav-tab" data-tab="tv"><i class="fa-solid fa-tv"></i> TV Series</button>
+          </nav>
+        </div>
+
+        <div class="nav-right">
+          <button class="btn btn-secondary btn-sm" id="closePlayerModalBtn"><i class="fa-solid fa-arrow-left"></i> Back to Library</button>
+          <div class="user-profile">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" alt="User Avatar" class="avatar">
+            <div class="user-info">
+              <span class="user-name">Shehan</span>
+              <span class="user-status"><i class="fa-solid fa-circle text-success"></i> Vault Online</span>
+            </div>
+            <button class="btn-icon" id="closePlayerModal" title="Close Page"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+      </header>
+
+      <!-- CENTERED INNER CONTAINER MATCHING SCREENSHOT -->
+      <div class="cs-page-inner-container">
+        <!-- BREADCRUMB BAR ABOVE PLAYER -->
+        <div class="cs-breadcrumb-bar">
+          <span class="cs-bc-item" id="bcHome">Home</span>
+          <span class="cs-bc-sep">/</span>
+          <span class="cs-bc-item">Movies</span>
+          <span class="cs-bc-sep">/</span>
+          <span class="cs-bc-current" id="modalBreadcrumbTitle">The India Story (2026) Subtitles | Sinhala Subtitles</span>
+        </div>
+
+        <!-- 1. VIDEO PLAYER CONTAINER -->
+        <div class="cs-video-container" id="csVideoContainer">
+          <!-- BACKDROP & BIG PLAY OVERLAY -->
+          <div class="cs-video-backdrop-overlay" id="videoBackdropOverlay">
+            <img id="modalBackdropImg" src="" alt="Backdrop">
+            <button class="cs-big-play-btn" id="btnBigPlay" title="Play Movie">
+              <i class="fa-solid fa-play"></i>
+            </button>
+          </div>
+
+          <!-- HTML5 VIDEO PLAYER & YOUTUBE EMBED -->
+          <div class="video-wrapper" id="videoWrapper">
+            <video id="mainVideoPlayer" controls controlsList="nodownload" preload="metadata">
+              <source id="videoSource" src="" type="video/mp4">
+              <track id="videoSubtitleTrack" kind="subtitles" srclang="en" label="Subtitles">
+              Your browser does not support the HTML5 video tag.
+            </video>
+            <iframe id="youtubeTrailerIframe" style="display:none; width:100%; height:100%; border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+
+          <!-- SERVER SWITCHER PILLS -->
+          <div class="cs-server-bar">
+            <button class="cs-server-pill active" data-server="cs">
+              <span class="cs-pill-sub">Server 1</span>
+              <span class="cs-pill-main"><i class="fa-solid fa-play"></i> Plyr HD</span>
+            </button>
+            <button class="cs-server-pill" data-server="super">
+              <span class="cs-pill-sub">Server 2</span>
+              <span class="cs-pill-main"><i class="fa-solid fa-server"></i> SuperEmbed Hub</span>
+            </button>
+            <button class="cs-server-pill" data-server="evo">
+              <span class="cs-pill-sub">Server 3</span>
+              <span class="cs-pill-main"><i class="fa-solid fa-bolt"></i> Evo Player</span>
+            </button>
+            <button class="cs-server-pill" data-server="youtube">
+              <span class="cs-pill-sub">Trailer</span>
+              <span class="cs-pill-main"><i class="fa-brands fa-youtube"></i> Youtube</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. MOVIE DETAILS MAIN BODY -->
+        <div class="cs-detail-body">
+          <div class="cs-main-content">
+            <!-- MOVIE INFO HEADER CARD -->
+            <div class="cs-info-box">
+              <div class="cs-poster-thumb">
+                <img id="modalPosterImg" src="" alt="Poster" onerror="this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=600&auto=format&fit=crop'">
+              </div>
+              <div class="cs-info-details">
+                <h1 id="modalTitle">Movie Title</h1>
+                <div class="cs-rating-stars">
+                  <span class="cs-star-num">5</span>
+                  <div class="stars-gold">★★★★★</div>
+                  <span class="cs-vote-count">1 vote</span>
+                </div>
+
+                <div class="cs-genre-line" id="modalGenreLine">Cinematic, Drama, Hindi, Thriller</div>
+
+                <!-- ADMIN QUICK ACTIONS -->
+                <div class="cs-admin-actions">
+                  <button class="btn btn-crimson btn-sm" id="modalFavBtn"><i class="fa-solid fa-star"></i> Favorite</button>
+                  <button class="btn btn-secondary btn-sm" id="modalWatchedBtn"><i class="fa-solid fa-eye"></i> Watched</button>
+                  <button class="btn btn-secondary btn-sm" id="modalEditBtn" onclick="openEditMovieModal()"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                  <button class="btn btn-outline text-danger btn-sm" id="modalDeleteBtn"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                  <div class="category-assign-box" style="width: 100%; margin-top: 10px;">
+                    <label class="cs-label" style="font-size:0.8rem; display:inline-flex; align-items:center; gap:6px; margin-bottom:6px;"><i class="fa-solid fa-folder-tree text-crimson"></i> Assign Category:</label>
+                    <div class="category-pills-row" id="modalCategoryPills">
+                      <button type="button" class="cat-pill-btn" data-val="English"><i class="fa-solid fa-film"></i> English</button>
+                      <button type="button" class="cat-pill-btn" data-val="Tamil"><i class="fa-solid fa-film"></i> Tamil</button>
+                      <button type="button" class="cat-pill-btn" data-val="Hindi"><i class="fa-solid fa-film"></i> Hindi</button>
+                      <button type="button" class="cat-pill-btn" data-val="tv"><i class="fa-solid fa-tv"></i> TV Series</button>
+                      <button type="button" class="cat-pill-btn" data-val="Sinhala"><i class="fa-solid fa-film"></i> Sinhala</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TV SERIES SEASONS & EPISODES CONTAINER -->
+            <div class="cs-tv-container" id="csTvContainer" style="display: none;">
+              <div class="cs-section-title flex-between" style="margin-bottom: 12px;">
+                <h3><i class="fa-solid fa-layer-group text-crimson"></i> Seasons & Episodes</h3>
+                <span class="cs-tv-badge" id="tvEpCountBadge">0 Seasons</span>
+              </div>
+
+              <!-- SEASON SELECTION TABS -->
+              <div class="cs-season-tabs" id="csSeasonTabs">
+                <!-- Dynamically populated Season pills -->
+              </div>
+
+              <!-- EPISODE LIST GRID -->
+              <div class="cs-episode-grid" id="csEpisodeGrid">
+                <!-- Dynamically populated Episode Cards -->
+              </div>
+            </div>
+
+            <!-- CAST AVATARS ROW -->
+            <div class="cs-cast-section">
+              <div class="cs-section-title flex-between">
+                <h3>Cast</h3>
+              </div>
+              <div class="cs-cast-list" id="modalCastAvatars">
+                <!-- Dynamically rendered cast avatar cards -->
+              </div>
+            </div>
+
+            <!-- DIRECT DOWNLOAD LINKS STACK -->
+            <div class="cinesubz-download-section">
+              <div class="cs-download-header">Direct Download & Stream Links</div>
+              <div class="download-buttons-stack" id="modalDownloadStack">
+                <!-- Dynamically populated download buttons -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER INSIDE MODAL/PAGE -->
+      <div class="cs-modal-footer">
+        <div class="cs-footer-left">
+          Powered by CineVault Movies | Developed by CyberDev Team
+        </div>
+        <div class="cs-footer-right">
+          <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a> • <a href="#">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPLOAD / ADD MOVIE MODAL -->
+  <div id="uploadModal" class="modal-overlay">
+    <div class="modal-card modal-md">
+      <button class="modal-close" id="closeUploadModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-cloud-arrow-up text-crimson"></i> Add Movies to Personal Collection</h2>
+        <p>Upload single movie or batch upload multiple movies at once</p>
+      </div>
+
+      <!-- UPLOAD MODE TABS -->
+      <div class="upload-mode-tabs">
+        <button type="button" class="upload-mode-tab active" id="tabModeSingle">
+          <i class="fa-solid fa-film"></i> Single Movie Upload
+        </button>
+        <button type="button" class="upload-mode-tab" id="tabModeBulk">
+          <i class="fa-solid fa-layer-group text-crimson"></i> Bulk Multi-Movie Upload
+        </button>
+        <button type="button" class="upload-mode-tab" id="tabModeTvFolder">
+          <i class="fa-solid fa-folder-tree text-warning"></i> TV Series Folder Upload
+        </button>
+      </div>
+
+      <!-- 1. SINGLE MOVIE UPLOAD FORM -->
+      <form id="uploadForm" class="upload-form">
+        <!-- ALL-IN-ONE UNIFIED DRAG & DROP ZONE FOR VIDEO & SUBTITLE FILES -->
+        <div class="upload-dropzone" id="dropzoneVideo">
+          <i class="fa-solid fa-cloud-arrow-up drop-icon text-crimson"></i>
+          <h4>Drag & Drop Movie Video (.mp4, .mkv) AND Subtitle File (.srt, .vtt) Here</h4>
+          <p>Drop both video & subtitle files together or click buttons below</p>
+          
+          <div class="selected-files-preview" id="selectedFilesPreview" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; margin-bottom: 10px;">
+            <span class="file-chosen-name" id="videoFileName" style="padding: 6px 14px; border-radius: 20px; background: rgba(229,9,20,0.15); color: var(--color-crimson); border: 1px dashed rgba(229,9,20,0.4); font-size: 0.85rem;"><i class="fa-solid fa-film"></i> No video file selected</span>
+            <span class="file-chosen-name" id="subFileName" style="padding: 6px 14px; border-radius: 20px; background: rgba(255,193,7,0.15); color: #ffc107; border: 1px dashed rgba(255,193,7,0.4); font-size: 0.85rem;"><i class="fa-solid fa-closed-captioning"></i> Optional: No subtitle file selected (.srt)</span>
+          </div>
+
+          <div style="display: flex; gap: 10px; justify-content: center; margin-top: 6px;" onclick="event.stopPropagation()">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSelectVideoFile"><i class="fa-solid fa-video"></i> Choose Video File</button>
+            <button type="button" class="btn btn-warning btn-sm" id="btnSelectSubFile" style="background: #ffc107; color: #000; border: none; font-weight: 600;"><i class="fa-solid fa-closed-captioning"></i> Attach Subtitle (.srt)</button>
+          </div>
+
+          <input type="file" id="videoFileInput" name="video" accept="video/*,.mp4,.mkv,.webm,.avi,.mov,.srt,.vtt" multiple hidden>
+          <input type="file" id="subtitleFileInput" name="subtitle" accept=".srt,.vtt" hidden>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <div class="label-with-action">
+              <label><i class="fa-solid fa-heading"></i> Movie Title</label>
+              <button type="button" class="btn-fetch-meta" id="btnFetchMeta" title="Search Google / Internet for Movie Details">
+                <i class="fa-solid fa-google"></i> <i class="fa-solid fa-magnifying-glass"></i> Search Online
+              </button>
+            </div>
+            <div class="input-with-search-container" style="position: relative;">
+              <input type="text" id="uploadTitle" placeholder="Type movie name to search online (e.g. Interstellar)..." autocomplete="off" required>
+              <div id="movieSearchSuggestions" class="movie-search-suggestions-dropdown" style="display:none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label><i class="fa-solid fa-calendar"></i> Release Year</label>
+            <input type="number" id="uploadYear" placeholder="2024" value="2024" required>
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-highlighter"></i> Video Quality Badge</label>
+            <select id="uploadQuality" class="filter-select">
+              <option value="WEB-DL">WEB-DL</option>
+              <option value="BLURAY">BLURAY</option>
+              <option value="1080p HD">1080p HD</option>
+              <option value="4K UHD">4K UHD</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label><i class="fa-solid fa-earth-americas"></i> Primary Language (Tab Category)</label>
+            <select id="uploadLanguage" class="filter-select">
+              <option value="English">English</option>
+              <option value="Tamil">Tamil</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Sinhala">Sinhala</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-shapes"></i> Content Category / Type</label>
+            <select id="uploadType" class="filter-select">
+              <option value="movie">Movie</option>
+              <option value="tv">TV Show / Series</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label><i class="fa-solid fa-masks-theater"></i> Genres (comma separated)</label>
+            <input type="text" id="uploadGenre" placeholder="Sci-Fi, Action, Thriller" required>
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-clock"></i> Duration & File Size</label>
+            <input type="text" id="uploadDuration" placeholder="2h 49m | 2.4 GB" value="2h 15m | 2.0 GB">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label><i class="fa-solid fa-video"></i> Director</label>
+            <input type="text" id="uploadDirector" placeholder="Christopher Nolan">
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-users"></i> Cast</label>
+            <input type="text" id="uploadCast" placeholder="Leonardo DiCaprio, Matthew McConaughey">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label><i class="fa-solid fa-star"></i> IMDb Rating</label>
+            <input type="number" step="0.1" id="uploadImdb" placeholder="8.5" value="8.5">
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-heart"></i> Personal Rating</label>
+            <input type="number" step="0.1" id="uploadPersonalRating" placeholder="9.0" value="9.0">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fa-solid fa-image"></i> Poster Image File / URL</label>
+          <div class="input-with-upload">
+            <input type="text" id="uploadPosterUrl" placeholder="https://example.com/poster.jpg or select file">
+            <input type="file" id="posterFileInput" name="poster" accept="image/*" hidden>
+            <button type="button" class="btn btn-secondary" id="btnSelectPoster"><i class="fa-solid fa-upload"></i> Poster</button>
+          </div>
+        </div>
+
+        <!-- UPLOAD PROGRESS BAR -->
+        <div class="upload-progress-container" id="uploadProgressContainer" style="display:none;">
+          <div class="progress-info">
+            <span id="uploadStatusText">Uploading movie file...</span>
+            <span id="uploadPercentage">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="uploadProgressBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-crimson btn-block btn-lg" id="btnSubmitUpload">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Save & Upload to Personal Media Server
+        </button>
+      </form>
+
+      <!-- 2. BULK MULTI-MOVIE UPLOAD CONTAINER -->
+      <div id="bulkUploadContainer" style="display: none; margin-top: 14px;">
+        <div class="upload-dropzone bulk-dropzone" id="dropzoneBulkVideo">
+          <i class="fa-solid fa-layer-group drop-icon text-crimson"></i>
+          <h4>Drag & Drop Multiple Movie Files Here</h4>
+          <p>Select multiple .mp4, .mkv, .webm files at once</p>
+          <input type="file" id="bulkVideoInput" multiple accept="video/*" hidden>
+          <button type="button" class="btn btn-crimson btn-sm" id="btnBrowseBulk" style="margin-top: 10px;">
+            <i class="fa-solid fa-folder-open"></i> Select Multiple Movies
+          </button>
+        </div>
+
+        <!-- BULK QUEUE CONTAINER -->
+        <div class="bulk-queue-section" id="bulkQueueSection" style="display: none; margin-top: 18px;">
+          <div class="bulk-queue-header">
+            <h4><i class="fa-solid fa-list-check text-crimson"></i> Staged Movies (<span id="bulkQueueCount">0</span>)</h4>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnClearBulkQueue"><i class="fa-solid fa-trash"></i> Clear All</button>
+          </div>
+
+          <div class="bulk-queue-list" id="bulkQueueList">
+            <!-- Dynamically generated bulk movie item cards -->
+          </div>
+
+          <!-- BULK BATCH PROGRESS BAR -->
+          <div class="upload-progress-container" id="bulkProgressContainer" style="display: none; margin-top: 16px;">
+            <div class="progress-info">
+              <span id="bulkStatusText">Uploading batch movies...</span>
+              <span id="bulkPercentage">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bulkProgressBar" style="width:0%"></div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-crimson btn-block btn-lg" id="btnStartBulkUpload" style="margin-top: 16px;">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Start Batch Uploading All Movies
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. TV SERIES FOLDER UPLOAD CONTAINER -->
+      <div id="tvFolderContainer" style="display: none; margin-top: 14px;">
+        <div class="upload-dropzone bulk-dropzone" id="dropzoneTvFolder">
+          <i class="fa-solid fa-folder-tree drop-icon text-warning"></i>
+          <h4>Select Entire TV Series Folder</h4>
+          <p>Select a folder structured as <b>Show Name ➔ Season 01 ➔ Episode 01.mp4, Episode 02.mp4</b></p>
+          <input type="file" id="tvFolderInput" webkitdirectory directory hidden>
+          <button type="button" class="btn btn-crimson btn-sm" id="btnBrowseTvFolder" style="margin-top: 10px;">
+            <i class="fa-solid fa-folder-open"></i> Select TV Series Folder
+          </button>
+        </div>
+
+        <!-- STAGED TV SERIES PREVIEW SECTION -->
+        <div class="bulk-queue-section" id="tvFolderStagingSection" style="display: none; margin-top: 18px;">
+          <div class="bulk-queue-header">
+            <h4><i class="fa-solid fa-tv text-warning"></i> Parsed TV Show: <span id="tvShowStagedTitle" class="text-crimson">Show Title</span></h4>
+            <span class="cs-tv-badge" id="tvStagedSummary">0 Seasons | 0 Episodes</span>
+          </div>
+
+          <div class="bulk-queue-list" id="tvStagedSeasonsList">
+            <!-- Dynamically populated Season & Episode preview cards -->
+          </div>
+
+          <!-- TV FOLDER UPLOAD PROGRESS BAR -->
+          <div class="upload-progress-container" id="tvFolderProgressContainer" style="display: none; margin-top: 16px;">
+            <div class="progress-info">
+              <span id="tvFolderStatusText">Uploading TV Series episodes...</span>
+              <span id="tvFolderPercentage">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="tvFolderProgressBar" style="width:0%"></div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-crimson btn-block btn-lg" id="btnSaveTvShowFolder" style="margin-top: 16px;">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Save & Upload Entire TV Series
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONLINE GOOGLE / INTERNET MOVIE SEARCH MODAL -->
+  <div id="onlineSearchModal" class="modal-overlay">
+    <div class="modal-card modal-md">
+      <button class="modal-close" id="closeOnlineSearchModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-magnifying-glass text-crimson"></i> Search Movie Online (Google / OMDb)</h2>
+        <p>Find movies by title, year, or keywords and auto-fill metadata</p>
+      </div>
+      <div class="search-modal-body" style="padding: 10px 0;">
+        <div class="form-row" style="margin-bottom: 15px;">
+          <div class="input-group" style="flex: 1;">
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="modalSearchQuery" placeholder="e.g. Oppenheimer 2023 or Leo..." style="flex: 1;">
+              <button type="button" class="btn btn-crimson" id="btnModalDoSearch" style="white-space: nowrap;">
+                <i class="fa-solid fa-magnifying-glass"></i> Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="modalSearchResults" class="online-search-results-grid">
+          <div class="search-empty-state">
+            <i class="fa-solid fa-film" style="font-size: 2.5rem; color: rgba(255,255,255,0.2); margin-bottom: 10px;"></i>
+            <p style="color: var(--text-muted);">Type a movie name above to search online...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT MOVIE DETAILS POP-UP MODAL WINDOW -->
+  <div id="editMovieModal" class="modal-overlay">
+    <div class="modal-card modal-lg">
+      <button class="modal-close" id="closeEditModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-pen-to-square text-crimson"></i> Edit Movie Details</h2>
+        <p>Update title, official poster, cast, ratings, and synopsis</p>
+      </div>
+
+      <form id="editMovieForm" class="upload-form">
+        <input type="hidden" id="editMovieId">
+
+        <div class="edit-modal-layout" style="display: flex; gap: 24px; margin-bottom: 20px;">
+          <!-- Left Column: Poster Preview & Change -->
+          <div class="edit-poster-column" style="flex: 0 0 180px; text-align: center;">
+            <div class="edit-poster-preview-box" style="width: 180px; aspect-ratio: 2/3; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 6px 20px rgba(0,0,0,0.6); margin-bottom: 12px; background: #121218;">
+              <img id="editPosterPreviewImg" src="" alt="Poster Preview" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <label class="btn btn-secondary btn-sm btn-block" style="cursor: pointer;">
+              <i class="fa-solid fa-upload"></i> Change Poster
+              <input type="file" id="editPosterFileInput" accept="image/*" hidden>
+            </label>
+          </div>
+
+          <!-- Right Column: Form Fields -->
+          <div class="edit-fields-column" style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+            <div class="form-row">
+              <div class="input-group" style="flex: 2;">
+                <label><i class="fa-solid fa-film"></i> Movie Title</label>
+                <input type="text" id="editMovieTitle" required>
+              </div>
+              <div class="input-group" style="flex: 1;">
+                <label><i class="fa-solid fa-calendar"></i> Release Year</label>
+                <input type="number" id="editMovieYear" required>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label><i class="fa-solid fa-image"></i> Poster Image URL</label>
+              <input type="text" id="editMoviePosterUrl" placeholder="https://.../poster.jpg">
+            </div>
+
+            <div class="form-row">
+              <div class="input-group">
+                <label><i class="fa-solid fa-video"></i> Director</label>
+                <input type="text" id="editMovieDirector">
+              </div>
+              <div class="input-group">
+                <label><i class="fa-solid fa-earth-americas"></i> Language</label>
+                <select id="editMovieLanguage" class="filter-select">
+                  <option value="Malayalam">Malayalam</option>
+                  <option value="Tamil">Tamil</option>
+                  <option value="Hindi">Hindi</option>
+                  <option value="English">English</option>
+                  <option value="Sinhala">Sinhala</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label><i class="fa-solid fa-masks-theater"></i> Genres (comma separated)</label>
+            <input type="text" id="editMovieGenre">
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-clock"></i> Duration</label>
+            <input type="text" id="editMovieDuration" placeholder="2h 15m">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label><i class="fa-solid fa-star"></i> IMDb Rating</label>
+            <input type="number" step="0.1" id="editMovieImdb" min="0" max="10">
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-heart"></i> Personal Rating</label>
+            <input type="number" step="0.1" id="editMoviePersonalRating" min="0" max="10">
+          </div>
+          <div class="input-group">
+            <label><i class="fa-solid fa-compact-disc"></i> Quality</label>
+            <select id="editMovieQuality" class="filter-select">
+              <option value="4K UHD">4K UHD</option>
+              <option value="1080p BluRay">1080p BluRay</option>
+              <option value="WEB-DL">WEB-DL</option>
+              <option value="720p HD">720p HD</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fa-solid fa-users"></i> Cast (at least 10 actors, comma separated)</label>
+          <input type="text" id="editMovieCast" placeholder="Actor 1, Actor 2, Actor 3, ..." required>
+          <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px;">* Minimum 10 cast members required for high-definition portraits.</small>
+        </div>
+
+        <div class="modal-actions" style="display: flex; gap: 12px; margin-top: 20px;">
+          <button type="button" class="btn btn-secondary btn-block" id="btnCancelEdit">Cancel</button>
+          <button type="submit" class="btn btn-crimson btn-block" id="btnSaveEdit">
+            <i class="fa-solid fa-floppy-disk"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+  <script src="app.js?v=17"></script>
+</body>
+</html>

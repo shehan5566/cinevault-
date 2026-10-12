@@ -1,0 +1,19 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "uploads": true,
+    "uploads/videos": true,
+    "uploads/subtitles": true,
+    "uploads/posters": true,
+    "uploads/hls": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/uploads": true
+  }
+}
