@@ -107,11 +107,25 @@ async function uploadFile(filePath, fileName, caption, onProgress, thumbPath = n
 }
 
 async function getMedia(messageId) {
-  const client = await getClient();
-  const msgs = await client.getMessages(await getPeer(), { ids: [Number(messageId)] });
-  const msg = msgs && msgs[0];
-  if (!msg || !msg.media || !msg.media.document) return null;
-  return { client, media: msg.media, size: Number(msg.media.document.size), msg };
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const client = await getClient();
+      const msgs = await client.getMessages(await getPeer(), { ids: [Number(messageId)] });
+      const msg = msgs && msgs[0];
+      if (!msg || !msg.media || !msg.media.document) return null;
+      return { client, media: msg.media, size: Number(msg.media.document.size), msg };
+    } catch (err) {
+      console.warn(`[Telegram MTProto] getMedia notice for msg ${messageId} (attempt ${attempt}/2):`, err.message);
+      if (attempt === 1) {
+        clientPromise = null;
+        peerCache = null;
+        await new Promise(r => setTimeout(r, 1000));
+      } else {
+        throw err;
+      }
+    }
+  }
+  return null;
 }
 
 // Streams a stored message's file with HTTP Range support.
