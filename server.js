@@ -92,6 +92,9 @@ function getMovies() {
 function saveMovies(movies) {
   try {
     fs.writeFileSync(DATA_FILE, JSON.stringify(movies, null, 2), 'utf8');
+    if (process.env.NODE_ENV !== 'production') {
+      try { require('./auto_git_sync').checkAndPush('movies database updated'); } catch (e) {}
+    }
   } catch (err) {
     console.error('Error writing movies.json:', err);
   }
@@ -1736,4 +1739,13 @@ app.get('/api/download/:id', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🎬 CineVault Server running on http://localhost:${PORT}`);
   console.log(`📡 Telegram Cloud Storage: Connected to Bot (${TELEGRAM_BOT_TOKEN.split(':')[0]}) and Chat (${TELEGRAM_CHAT_ID})`);
+  
+  // Initialize Auto-Git-Sync to automatically push local changes to GitHub & Render
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      require('./auto_git_sync');
+    } catch (err) {
+      console.error('[Auto-Git-Sync] Initialization error:', err.message);
+    }
+  }
 });

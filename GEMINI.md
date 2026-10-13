@@ -37,3 +37,9 @@
 - Server entry point is `server.js`. Run with `node server.js` or `npm start`.
 - Static files served from `public/`.
 - Telegram Cloud MTProto client configured in `tgstorage.js`.
+
+## 7. AUTOMATIC GITHUB PUSH & RENDER LIVE DEPLOYMENT
+- All code changes, UI updates, bugfixes, and movie additions in `data/movies.json` MUST be committed and pushed automatically to GitHub (`origin main`).
+- `auto_git_sync.js` runs automatically with `server.js` locally to watch project changes and push them within seconds.
+- Render automatically detects the GitHub push and deploys the live production site without manual intervention.
+
