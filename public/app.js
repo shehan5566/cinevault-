@@ -262,6 +262,18 @@ function setupPlyrWithHls(srcUrl) {
         },
         speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] }
       });
+
+      plyrInstance.on('play', () => {
+        try {
+          plyrInstance.toggleCaptions(true);
+          if (plyrInstance.captions) plyrInstance.captions.active = true;
+          if (video.textTracks && video.textTracks.length > 0) {
+            for (let i = 0; i < video.textTracks.length; i++) {
+              video.textTracks[i].mode = 'showing';
+            }
+          }
+        } catch(e) {}
+      });
     }
   }
 }
