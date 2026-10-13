@@ -459,9 +459,23 @@ window.openPlayerModal = openPlayerModal;
           videoSource.src = effVideoUrl;
           mainVideoPlayer.load();
         }
+        if (plyrInstance) {
+          try {
+            plyrInstance.toggleCaptions(true);
+            if (plyrInstance.captions) plyrInstance.captions.active = true;
+          } catch (e) {}
+        }
         mainVideoPlayer.play().catch(e => {
           console.log('Playback start notice:', e);
         });
+        setTimeout(() => {
+          if (plyrInstance) {
+            try {
+              plyrInstance.toggleCaptions(true);
+              if (plyrInstance.captions) plyrInstance.captions.active = true;
+            } catch (e) {}
+          }
+        }, 500);
       } else {
         alert('⚠️ මෙම චිත්‍රපටය සඳහා වීඩියෝ ගොනුවක් තවමත් Upload කර නොමැත. කරුණාකර වීඩියෝව Upload කරන්න.');
       }
