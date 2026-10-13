@@ -11,7 +11,6 @@ const API_HASH = process.env.TELEGRAM_API_HASH || '304b219a9e2cd12e50d14d74bcef1
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8538231781:AAFJ27AnEuZK22-TnUM15wRgYWdU2Zvihz0';
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003955449040';
 const SESSION_FILE = path.join(__dirname, 'data', 'tg_session.txt');
-const DEFAULT_SESSION = '1BQANOTEuMTA4LjU2LjE3MAG7lOmXKIk7MMKQmW7yK8DgCNwMs8ysC4oowqIu2BZVTNfo6vtsL6qsLo5MzLXtBnNeJS96oExUXTBy6LUDSvI1pj4vilzHQTuIll/aaIo+z4zpd2xJFNZRDAGuAFMQEb96hUH/GmBMngvB44kizThkEGYNQZD4RE0NdwnCjPgoj02A34Dg1+Vy/9Ky/UBaVgS9NacPM1La0iomyHvkM05gDidn2FCO2pMzPO0jfvHMtK1yd0y0J5Ciiywib3Fe0gjreB2hDy30k3n/9hjQpB1lFYGlYxW/Hz0CSF1f66q5UySTtD+dAn32EKS0/Vn1xyB4l9KcAXg9aWkBRoco7oBdLg==';
 
 let clientPromise = null;
 
