@@ -1,9 +1,9 @@
 # CineVault Workspace Memory & Permanent Guidelines
 
-## 1. MANDATORY: MINIMUM 10 CAST MEMBERS FOR EVERY MOVIE
-- Every single movie in this repository MUST have **at least 10 cast members** (`cast.length >= 10`).
-- This applies to adding new movies, editing movies, and rendering movies in the UI.
-- Never show or save fewer than 10 cast members.
+## 1. MANDATORY: STRICTLY EXACTLY 10 CAST MEMBERS FOR EVERY MOVIE
+- Every single movie in this repository MUST have **strictly exactly 10 cast members** (`cast.length === 10`).
+- This applies to adding new movies, editing movies, saving movies in `data/movies.json`, and rendering movies in the UI.
+- Never show, generate, or save fewer than 10 or more than 10 cast members. It must ALWAYS be exactly 10 members.
 
 ## 2. HIGH-DEFINITION STUDIO ACTOR PORTRAITS
 - All cast members must have clean, official, solo studio photoshoot portraits or TMDB headshots.

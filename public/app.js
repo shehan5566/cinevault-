@@ -445,12 +445,14 @@ window.openPlayerModal = openPlayerModal;
     btnBigPlay.onclick = () => {
       if (backdropOverlay) backdropOverlay.classList.add('hidden');
       if (movie.videoUrl && movie.videoUrl.trim() !== '') {
+        const plyrEl = document.querySelector('.plyr');
+        if (plyrEl) plyrEl.style.display = 'block';
+        if (mainVideoPlayer) mainVideoPlayer.style.display = 'block';
         mainVideoPlayer.play().catch(e => {
-          console.log('Autoplay constraint or missing file:', e);
-          switchToCloudStream(movie, 'cs');
+          console.log('Playback start notice:', e);
         });
       } else {
-        switchToCloudStream(movie, 'cs');
+        alert('⚠️ මෙම චිත්‍රපටය සඳහා වීඩියෝ ගොනුවක් තවමත් Upload කර නොමැත. කරුණාකර වීඩියෝව Upload කරන්න.');
       }
     };
   }
@@ -458,7 +460,7 @@ window.openPlayerModal = openPlayerModal;
   // FLOATING CIRCULAR ACTION BUTTONS
   const btnFloatDownload = document.getElementById('btnFloatDownload');
   if (btnFloatDownload) {
-    btnFloatDownload.onclick = () => window.open(`/api/download/${movie.id}`, '_blank');
+    btnFloatDownload.onclick = () => downloadMovieWithSubtitles(movie.id);
   }
 
   const btnFloatFullscreen = document.getElementById('btnFloatFullscreen');
@@ -575,25 +577,22 @@ window.openPlayerModal = openPlayerModal;
         switchToCloudStream(movie, 'evo');
       } else {
         // Default CS Player (Plyr HD Server 1 - 100% Original Quality)
-        if (movie.videoUrl && movie.videoUrl.trim() !== '') {
-          if (youtubeIframe) {
-            youtubeIframe.src = '';
-            youtubeIframe.style.display = 'none';
-          }
-          const plyrEl = document.querySelector('.plyr');
-          if (plyrEl) plyrEl.style.display = 'block';
-          else if (mainVideoPlayer) mainVideoPlayer.style.display = 'block';
+        if (youtubeIframe) {
+          youtubeIframe.src = '';
+          youtubeIframe.style.display = 'none';
+        }
+        const plyrEl = document.querySelector('.plyr');
+        if (plyrEl) plyrEl.style.display = 'block';
+        else if (mainVideoPlayer) mainVideoPlayer.style.display = 'block';
 
+        if (movie.videoUrl && movie.videoUrl.trim() !== '') {
           videoSource.src = movie.videoUrl;
           mainVideoPlayer.load();
 
           if (backdropOverlay) backdropOverlay.classList.add('hidden');
           mainVideoPlayer.play().catch(e => {
-            console.log('CS play error:', e);
-            switchToCloudStream(movie, 'cs');
+            console.log('CS play notice:', e);
           });
-        } else {
-          switchToCloudStream(movie, 'cs');
         }
       }
     };
@@ -609,17 +608,19 @@ window.openPlayerModal = openPlayerModal;
     };
   }
 
+  // Set up PlyrHD as the main player
+  if (youtubeIframe) {
+    youtubeIframe.src = '';
+    youtubeIframe.style.display = 'none';
+  }
+  const plyrEl = document.querySelector('.plyr');
+  if (plyrEl) plyrEl.style.display = 'block';
+  else if (mainVideoPlayer) mainVideoPlayer.style.display = 'block';
+
   if (movie.videoUrl && movie.videoUrl.trim() !== '') {
     videoSource.src = movie.videoUrl;
-    if (youtubeIframe) {
-      youtubeIframe.src = '';
-      youtubeIframe.style.display = 'none';
-    }
-    if (mainVideoPlayer) {
-      mainVideoPlayer.style.display = 'block';
-    }
   } else {
-    switchToCloudStream(movie);
+    videoSource.src = '';
   }
 
   if (movie.subtitleUrl) {
@@ -745,8 +746,8 @@ window.openPlayerModal = openPlayerModal;
     }
   }
 
-  // RENDER CAST AVATARS WITH REAL ACTOR IMAGE AUTO-SEARCH
-  const castList = Array.isArray(movie.cast) ? movie.cast : (movie.cast ? movie.cast.split(',') : []);
+  // RENDER CAST AVATARS WITH REAL ACTOR IMAGE AUTO-SEARCH (EXACTLY 10 CAST MEMBERS)
+  const castList = (Array.isArray(movie.cast) ? movie.cast : (movie.cast ? movie.cast.split(',') : [])).slice(0, 10);
   if (castList.length === 0) {
     modalCastAvatars.innerHTML = '<p class="text-muted" style="font-size:0.85rem;">No cast members listed for this movie.</p>';
   } else {
@@ -788,27 +789,27 @@ window.openPlayerModal = openPlayerModal;
     }).join('');
   }
 
-  // RENDER CINESUBZ VERTICAL DOWNLOAD STACK MATCHING SCREENSHOT
+  // SINGLE VIDEO DOWNLOAD (SUBTITLE EMBEDDED IN VIDEO CONTAINER)
+  window.downloadMovieWithSubtitles = function(movieId) {
+    const targetMovie = moviesData.find(m => m.id === movieId);
+    if (!targetMovie) return;
+
+    // Direct Single Video Download
+    const movieLink = document.createElement('a');
+    movieLink.href = `/api/download/${targetMovie.id}`;
+    movieLink.download = `${targetMovie.title} [${getShortQuality(targetMovie.quality)}].mkv`;
+    document.body.appendChild(movieLink);
+    movieLink.click();
+    document.body.removeChild(movieLink);
+  };
+
+  // RENDER SINGLE DIRECT DOWNLOAD BUTTON (EMBEDDED SUBTITLE, ZERO SEPARATE BUTTONS)
   modalDownloadStack.innerHTML = `
-    <a href="/api/download/${movie.id}" class="movie-download-button">
+    <a href="/api/download/${movie.id}" class="movie-download-button" download="${movie.title} [${getShortQuality(movie.quality)}].mkv">
       <div class="movie-download-icon"><i class="fa-solid fa-arrow-down"></i></div>
       <div class="movie-download-info">
-        <span class="movie-download-type">Direct & Telegram Download Links</span>
-        <span class="movie-download-meta">${getShortQuality(movie.quality)} 480p • 700 MB • ${movie.language || 'Hindi'}</span>
-      </div>
-    </a>
-    <a href="/api/download/${movie.id}" class="movie-download-button">
-      <div class="movie-download-icon"><i class="fa-solid fa-arrow-down"></i></div>
-      <div class="movie-download-info">
-        <span class="movie-download-type">Direct & Telegram Download Links</span>
-        <span class="movie-download-meta">${getShortQuality(movie.quality)} 720p • 1.4 GB • ${movie.language || 'Hindi'}</span>
-      </div>
-    </a>
-    <a href="/api/download/${movie.id}" class="movie-download-button">
-      <div class="movie-download-icon"><i class="fa-solid fa-arrow-down"></i></div>
-      <div class="movie-download-info">
-        <span class="movie-download-type">Direct & Telegram Download Links</span>
-        <span class="movie-download-meta">${getShortQuality(movie.quality)} 1080p • ${movie.fileSize || '2.5 GB'} • ${movie.language || 'Hindi'}</span>
+        <span class="movie-download-type">Direct Download</span>
+        <span class="movie-download-meta">${getShortQuality(movie.quality)} ${movie.fileSize || '2.0 GB'} • ${movie.language || 'Tamil'}</span>
       </div>
     </a>
   `;
@@ -1071,9 +1072,10 @@ function setupEditMovieModal() {
 
     let castList = rawCast.split(',').map(c => c.trim()).filter(Boolean);
     if (castList.length < 10) {
-      alert('⚠️ Minimum 10 Cast Members Required: Every movie in CineVault must have at least 10 cast members. Please enter at least 10 actors.');
+      alert('⚠️ Strictly 10 Cast Members Required: Every movie in CineVault must have exactly 10 cast members. Please provide 10 actors.');
       return;
     }
+    castList = castList.slice(0, 10);
 
     const updatedData = {
       title,

@@ -37,15 +37,17 @@ async function getClient() {
   if (!isConfigured()) throw new Error('TELEGRAM_API_ID / TELEGRAM_API_HASH missing in .env');
   if (!clientPromise) {
     clientPromise = (async () => {
-      const saved = fs.existsSync(SESSION_FILE) ? fs.readFileSync(SESSION_FILE, 'utf8').trim() : '';
+      const saved = (process.env.TELEGRAM_SESSION && process.env.TELEGRAM_SESSION.trim()) || (fs.existsSync(SESSION_FILE) ? fs.readFileSync(SESSION_FILE, 'utf8').trim() : '');
       const client = new TelegramClient(new StringSession(saved), API_ID, API_HASH, {
         connectionRetries: 15,
         retryDelay: 2000,
         timeout: 60000
       });
       await client.start({ botAuthToken: BOT_TOKEN });
-      fs.mkdirSync(path.dirname(SESSION_FILE), { recursive: true });
-      fs.writeFileSync(SESSION_FILE, client.session.save());
+      try {
+        fs.mkdirSync(path.dirname(SESSION_FILE), { recursive: true });
+        fs.writeFileSync(SESSION_FILE, client.session.save());
+      } catch (err) {}
       return client;
     })().catch(err => { clientPromise = null; throw err; });
   }
@@ -92,15 +94,22 @@ async function getMedia(messageId) {
   const msgs = await client.getMessages(await getPeer(), { ids: [Number(messageId)] });
   const msg = msgs && msgs[0];
   if (!msg || !msg.media || !msg.media.document) return null;
-  return { client, media: msg.media, size: Number(msg.media.document.size) };
+  return { client, media: msg.media, size: Number(msg.media.document.size), msg };
 }
 
 // Streams a stored message's file with HTTP Range support.
 async function streamToResponse(messageId, req, res, { download = false, filename = 'movie.mp4' } = {}) {
   const info = await getMedia(messageId);
   if (!info) return res.status(404).send('Telegram file not found');
-  const { client, media, size } = info;
+  const { client, media, size, msg } = info;
   const CHUNK = 512 * 1024;
+
+  let finalFilename = filename;
+  const origName = (msg && msg.file && msg.file.name) || '';
+  const origExt = (origName && path.extname(origName)) || ((media.document.mimeType && media.document.mimeType.includes('matroska')) ? '.mkv' : '.mp4');
+  if (origExt && !finalFilename.toLowerCase().endsWith(origExt.toLowerCase())) {
+    finalFilename = finalFilename.replace(/\.[^/.]+$/, '') + origExt;
+  }
 
   let start = 0, end = size - 1;
   const range = req.headers.range;
@@ -120,8 +129,11 @@ async function streamToResponse(messageId, req, res, { download = false, filenam
   }
   res.setHeader('Accept-Ranges', 'bytes');
   res.setHeader('Content-Length', end - start + 1);
-  res.setHeader('Content-Type', media.document.mimeType || 'video/mp4');
-  if (download) res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
+  res.setHeader('Content-Type', media.document.mimeType || 'video/x-matroska');
+  if (download) {
+    const safeAscii = finalFilename.replace(/["\\]/g, '').replace(/[^\x20-\x7E]/g, '_');
+    res.setHeader('Content-Disposition', `attachment; filename="${safeAscii}"; filename*=UTF-8''${encodeURIComponent(finalFilename)}`);
+  }
 
   const alignedStart = start - (start % CHUNK);
   let skip = start - alignedStart;

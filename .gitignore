@@ -4,3 +4,7 @@ uploads/hls/
 uploads/subtitles/
 uploads/posters/
 .env
+data/tg_session.txt
+scratch/
+*.log
+.vscode/
