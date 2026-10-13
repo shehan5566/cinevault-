@@ -4,6 +4,7 @@ const path = require('path');
 const { TelegramClient, Api } = require('telegram');
 const { StringSession } = require('telegram/sessions');
 const { CustomFile } = require('telegram/client/uploads');
+const bigInt = require('big-integer');
 
 const API_ID = parseInt(process.env.TELEGRAM_API_ID || '0', 10);
 const API_HASH = process.env.TELEGRAM_API_HASH || '';
@@ -37,7 +38,11 @@ async function getClient() {
   if (!clientPromise) {
     clientPromise = (async () => {
       const saved = fs.existsSync(SESSION_FILE) ? fs.readFileSync(SESSION_FILE, 'utf8').trim() : '';
-      const client = new TelegramClient(new StringSession(saved), API_ID, API_HASH, { connectionRetries: 5 });
+      const client = new TelegramClient(new StringSession(saved), API_ID, API_HASH, {
+        connectionRetries: 15,
+        retryDelay: 2000,
+        timeout: 60000
+      });
       await client.start({ botAuthToken: BOT_TOKEN });
       fs.mkdirSync(path.dirname(SESSION_FILE), { recursive: true });
       fs.writeFileSync(SESSION_FILE, client.session.save());
@@ -49,29 +54,37 @@ async function getClient() {
 
 // Uploads a video to the channel; returns { messageId, size } or null on failure.
 async function uploadFile(filePath, fileName, caption, onProgress, thumbPath = null) {
-  try {
-    const client = await getClient();
-    const size = fs.statSync(filePath).size;
-    const sendOpts = {
-      file: new CustomFile(fileName, size, filePath),
-      caption: caption || fileName,
-      forceDocument: true,
-      workers: 8,
-      progressCallback: (p) => {
-        if (onProgress) onProgress(p);
-        process.stdout.write(`\r[Telegram MTProto] Upload ${(p * 100).toFixed(1)}%   `);
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const client = await getClient();
+      const size = fs.statSync(filePath).size;
+      const sendOpts = {
+        file: new CustomFile(fileName, size, filePath),
+        caption: caption || fileName,
+        forceDocument: true,
+        workers: 2,
+        progressCallback: (p) => {
+          if (onProgress) onProgress(p);
+          process.stdout.write(`\r[Telegram MTProto] Upload ${(p * 100).toFixed(1)}%   `);
+        }
+      };
+      if (thumbPath && fs.existsSync(thumbPath)) {
+        sendOpts.thumb = thumbPath;
       }
-    };
-    if (thumbPath && fs.existsSync(thumbPath)) {
-      sendOpts.thumb = thumbPath;
+      const msg = await client.sendFile(await getPeer(), sendOpts);
+      console.log(`\n[Telegram MTProto] Uploaded ${fileName}, message id ${msg.id}`);
+      return { messageId: msg.id, size };
+    } catch (err) {
+      console.error(`\n[Telegram MTProto] Upload error (attempt ${attempt}/3):`, err.message);
+      if (attempt < 3) {
+        console.log('[Telegram MTProto] Retrying in 5 seconds...');
+        await new Promise(r => setTimeout(r, 5000));
+      } else {
+        return null;
+      }
     }
-    const msg = await client.sendFile(await getPeer(), sendOpts);
-    console.log(`\n[Telegram MTProto] Uploaded ${fileName}, message id ${msg.id}`);
-    return { messageId: msg.id, size };
-  } catch (err) {
-    console.error('[Telegram MTProto] Upload error:', err.message);
-    return null;
   }
+  return null;
 }
 
 async function getMedia(messageId) {
@@ -87,7 +100,7 @@ async function streamToResponse(messageId, req, res, { download = false, filenam
   const info = await getMedia(messageId);
   if (!info) return res.status(404).send('Telegram file not found');
   const { client, media, size } = info;
-  const CHUNK = 1024 * 1024;
+  const CHUNK = 512 * 1024;
 
   let start = 0, end = size - 1;
   const range = req.headers.range;
@@ -119,9 +132,9 @@ async function streamToResponse(messageId, req, res, { download = false, filenam
   try {
     for await (const chunk of client.iterDownload({
       file: media,
-      offset: BigInt(alignedStart),
+      offset: bigInt(alignedStart),
       requestSize: CHUNK,
-      fileSize: BigInt(size)
+      fileSize: bigInt(size)
     })) {
       if (closed) break;
       let buf = chunk;

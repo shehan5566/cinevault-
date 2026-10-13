@@ -1,5 +1,50 @@
 [
   {
+    "id": "mov-1791804101372",
+    "title": "Abraham Ozler (2024)",
+    "sinhalaTitle": "Abraham Ozler (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": null,
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "director": "Midhun Manuel Thomas",
+    "cast": [
+      "Jayaram",
+      "Mammootty",
+      "Anoop Menon",
+      "Anaswara Rajan",
+      "Arjun Ashokan",
+      "Jagadish",
+      "Senthil Krishna",
+      "Saiju Kurup",
+      "Dileesh Pothan",
+      "Arya Salim"
+    ],
+    "imdbRating": 6.6,
+    "personalRating": 6.6,
+    "notes": "",
+    "duration": "143 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BYzRjNWVlNjEtNjZiMC00NjZlLTljZjEtN2FkMDcxYWRmZGYzXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/api/telegram/file/32",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1791804101194-133500925.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": 32,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 64,
+    "addedDate": "2026-10-12T11:21:41.372Z"
+  },
+  {
     "id": "mov-1791786965028",
     "title": "Aavesham (2024)",
     "sinhalaTitle": "Aavesham (2024) (සිංහල උපසිරැසි සමඟ)",
@@ -35,14 +80,15 @@
     "duration": "155 min | 1.05 GB",
     "fileSize": "1.05 GB",
     "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjJjY2IxMDYtN2U0My00MzFiLWJlYzItYmJkMDg1MTg3MjhmXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
-    "videoUrl": "/uploads/videos/video-1791786834171-307043538.mkv",
+    "videoUrl": "/api/telegram/file/14",
     "subtitleUrl": "/uploads/subtitles/subtitle-1791786965028-627899450.vtt",
     "telegramFileId": null,
     "watched": false,
     "isFavorite": false,
     "inWatchlist": true,
     "progressSeconds": 0,
-    "addedDate": "2026-10-12T06:36:05.028Z"
+    "addedDate": "2026-10-12T06:36:05.028Z",
+    "telegramMsgId": 14
   },
   {
     "id": "mov-1791778716957",
@@ -125,13 +171,14 @@
     "duration": "2h 30m",
     "fileSize": "2.0 GB",
     "posterUrl": "https://m.media-amazon.com/images/M/MV5BNmY5NjI5ZTQtNDAyZi00NjgyLWE3NzItODE4OGYxNmFkN2E2XkEyXkFqcGc@._V1_.jpg",
-    "videoUrl": "/uploads/videos/video-1791778296720-207335486.mkv",
+    "videoUrl": "/api/telegram/file/30",
     "subtitleUrl": "/uploads/subtitles/subtitle-1791778386151-370603432.vtt",
     "telegramFileId": null,
     "watched": false,
     "isFavorite": false,
     "inWatchlist": true,
-    "progressSeconds": 1147,
-    "addedDate": "2026-10-12T04:13:09.021Z"
+    "progressSeconds": 145,
+    "addedDate": "2026-10-12T04:13:09.021Z",
+    "telegramMsgId": 30
   }
 ]
