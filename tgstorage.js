@@ -38,21 +38,35 @@ async function getClient() {
   if (!isConfigured()) throw new Error('TELEGRAM_API_ID / TELEGRAM_API_HASH missing in .env');
   if (!clientPromise) {
     clientPromise = (async () => {
-      const saved = (process.env.TELEGRAM_SESSION && process.env.TELEGRAM_SESSION.trim()) || 
-        (fs.existsSync(SESSION_FILE) ? fs.readFileSync(SESSION_FILE, 'utf8').trim() : '') || 
-        DEFAULT_SESSION;
-      const client = new TelegramClient(new StringSession(saved), API_ID, API_HASH, {
-        connectionRetries: 15,
-        retryDelay: 2000,
-        timeout: 60000
-      });
-      await client.start({ botAuthToken: BOT_TOKEN });
+      let saved = (process.env.TELEGRAM_SESSION && process.env.TELEGRAM_SESSION.trim()) || 
+        (fs.existsSync(SESSION_FILE) ? fs.readFileSync(SESSION_FILE, 'utf8').trim() : '');
+
+      const initClient = async (sessStr) => {
+        const client = new TelegramClient(new StringSession(sessStr), API_ID, API_HASH, {
+          connectionRetries: 15,
+          retryDelay: 2000,
+          timeout: 60000
+        });
+        await client.start({ botAuthToken: BOT_TOKEN });
+        try {
+          fs.mkdirSync(path.dirname(SESSION_FILE), { recursive: true });
+          fs.writeFileSync(SESSION_FILE, client.session.save());
+        } catch (err) {}
+        return client;
+      };
+
       try {
-        fs.mkdirSync(path.dirname(SESSION_FILE), { recursive: true });
-        fs.writeFileSync(SESSION_FILE, client.session.save());
-      } catch (err) {}
-      return client;
-    })().catch(err => { clientPromise = null; throw err; });
+        return await initClient(saved);
+      } catch (err) {
+        console.warn('[Telegram MTProto] Initial connection notice:', err.message);
+        if (err.message && (err.message.includes('AUTH_KEY_DUPLICATED') || err.message.includes('AUTH_KEY_UNREGISTERED') || err.message.includes('SESSION_REVOKED') || err.message.includes('406'))) {
+          console.warn('[Telegram MTProto] Session key duplicated or revoked. Creating fresh independent bot session...');
+          try { if (fs.existsSync(SESSION_FILE)) fs.unlinkSync(SESSION_FILE); } catch(e){}
+          return await initClient('');
+        }
+        throw err;
+      }
+    })().catch(err => { clientPromise = null; peerCache = null; throw err; });
   }
   return clientPromise;
 }
