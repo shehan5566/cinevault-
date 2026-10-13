@@ -1740,6 +1740,11 @@ app.listen(PORT, () => {
   console.log(`🎬 CineVault Server running on http://localhost:${PORT}`);
   console.log(`📡 Telegram Cloud Storage: Connected to Bot (${TELEGRAM_BOT_TOKEN.split(':')[0]}) and Chat (${TELEGRAM_CHAT_ID})`);
   
+  // Pre-warm Telegram MTProto connection asynchronously
+  tgStorage.getClient()
+    .then(() => console.log('⚡ [Telegram MTProto] Cloud connection pre-warmed & ready.'))
+    .catch(err => console.warn('⚠️ [Telegram MTProto] Pre-warm notice:', err.message));
+
   // Initialize Auto-Git-Sync to automatically push local changes to GitHub & Render
   if (process.env.NODE_ENV !== 'production') {
     try {
