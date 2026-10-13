@@ -1,8 +1,6 @@
 node_modules/
 uploads/videos/
 uploads/hls/
-uploads/subtitles/
-uploads/posters/
 .env
 data/tg_session.txt
 scratch/
