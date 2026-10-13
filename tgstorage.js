@@ -6,11 +6,12 @@ const { StringSession } = require('telegram/sessions');
 const { CustomFile } = require('telegram/client/uploads');
 const bigInt = require('big-integer');
 
-const API_ID = parseInt(process.env.TELEGRAM_API_ID || '0', 10);
-const API_HASH = process.env.TELEGRAM_API_HASH || '';
+const API_ID = parseInt(process.env.TELEGRAM_API_ID || '36910273', 10);
+const API_HASH = process.env.TELEGRAM_API_HASH || '304b219a9e2cd12e50d14d74bcef11c6';
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8538231781:AAFJ27AnEuZK22-TnUM15wRgYWdU2Zvihz0';
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003955449040';
 const SESSION_FILE = path.join(__dirname, 'data', 'tg_session.txt');
+const DEFAULT_SESSION = '1BQANOTEuMTA4LjU2LjE3MAG7lOmXKIk7MMKQmW7yK8DgCNwMs8ysC4oowqIu2BZVTNfo6vtsL6qsLo5MzLXtBnNeJS96oExUXTBy6LUDSvI1pj4vilzHQTuIll/aaIo+z4zpd2xJFNZRDAGuAFMQEb96hUH/GmBMngvB44kizThkEGYNQZD4RE0NdwnCjPgoj02A34Dg1+Vy/9Ky/UBaVgS9NacPM1La0iomyHvkM05gDidn2FCO2pMzPO0jfvHMtK1yd0y0J5Ciiywib3Fe0gjreB2hDy30k3n/9hjQpB1lFYGlYxW/Hz0CSF1f66q5UySTtD+dAn32EKS0/Vn1xyB4l9KcAXg9aWkBRoco7oBdLg==';
 
 let clientPromise = null;
 
@@ -37,7 +38,9 @@ async function getClient() {
   if (!isConfigured()) throw new Error('TELEGRAM_API_ID / TELEGRAM_API_HASH missing in .env');
   if (!clientPromise) {
     clientPromise = (async () => {
-      const saved = (process.env.TELEGRAM_SESSION && process.env.TELEGRAM_SESSION.trim()) || (fs.existsSync(SESSION_FILE) ? fs.readFileSync(SESSION_FILE, 'utf8').trim() : '');
+      const saved = (process.env.TELEGRAM_SESSION && process.env.TELEGRAM_SESSION.trim()) || 
+        (fs.existsSync(SESSION_FILE) ? fs.readFileSync(SESSION_FILE, 'utf8').trim() : '') || 
+        DEFAULT_SESSION;
       const client = new TelegramClient(new StringSession(saved), API_ID, API_HASH, {
         connectionRetries: 15,
         retryDelay: 2000,
