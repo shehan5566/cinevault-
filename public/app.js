@@ -297,24 +297,29 @@ function setPlayerSubtitle(subtitleUrl) {
     const track = document.createElement('track');
     track.id = 'videoSubtitleTrack';
     track.kind = 'subtitles';
-    track.label = 'Subtitles';
-    track.srclang = 'en';
+    track.label = 'Sinhala';
+    track.srclang = 'si';
     track.src = subtitleUrl;
     track.default = true;
     video.appendChild(track);
 
-    setTimeout(() => {
+    const activateTracks = () => {
       if (video.textTracks && video.textTracks.length > 0) {
         for (let i = 0; i < video.textTracks.length; i++) {
           video.textTracks[i].mode = 'showing';
         }
       }
-      if (plyrInstance && plyrInstance.captions) {
+      if (plyrInstance) {
         try {
-          plyrInstance.captions.active = true;
-        } catch(e) {}
+          plyrInstance.toggleCaptions(true);
+          if (plyrInstance.captions) plyrInstance.captions.active = true;
+        } catch (e) {}
       }
-    }, 200);
+    };
+
+    track.addEventListener('load', activateTracks);
+    setTimeout(activateTracks, 200);
+    setTimeout(activateTracks, 800);
   }
 }
 
