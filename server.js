@@ -74,7 +74,15 @@ function getMovies() {
   try {
     if (!fs.existsSync(DATA_FILE)) return [];
     const raw = fs.readFileSync(DATA_FILE, 'utf8');
-    return JSON.parse(raw);
+    const list = JSON.parse(raw);
+    if (Array.isArray(list)) {
+      list.forEach(m => {
+        if (m.telegramMsgId && (!m.videoUrl || m.videoUrl.startsWith('/uploads/'))) {
+          m.videoUrl = `/api/telegram/file/${m.telegramMsgId}`;
+        }
+      });
+    }
+    return list;
   } catch (err) {
     console.error('Error reading movies.json:', err);
     return [];

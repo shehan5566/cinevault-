@@ -444,10 +444,15 @@ window.openPlayerModal = openPlayerModal;
   if (btnBigPlay) {
     btnBigPlay.onclick = () => {
       if (backdropOverlay) backdropOverlay.classList.add('hidden');
-      if (movie.videoUrl && movie.videoUrl.trim() !== '') {
+      const effVideoUrl = movie.videoUrl || (movie.telegramMsgId ? `/api/telegram/file/${movie.telegramMsgId}` : '');
+      if (effVideoUrl && effVideoUrl.trim() !== '') {
         const plyrEl = document.querySelector('.plyr');
         if (plyrEl) plyrEl.style.display = 'block';
         if (mainVideoPlayer) mainVideoPlayer.style.display = 'block';
+        if (videoSource && (!videoSource.src || !videoSource.src.includes(effVideoUrl))) {
+          videoSource.src = effVideoUrl;
+          mainVideoPlayer.load();
+        }
         mainVideoPlayer.play().catch(e => {
           console.log('Playback start notice:', e);
         });
@@ -617,8 +622,9 @@ window.openPlayerModal = openPlayerModal;
   if (plyrEl) plyrEl.style.display = 'block';
   else if (mainVideoPlayer) mainVideoPlayer.style.display = 'block';
 
-  if (movie.videoUrl && movie.videoUrl.trim() !== '') {
-    videoSource.src = movie.videoUrl;
+  const effVideoUrl = movie.videoUrl || (movie.telegramMsgId ? `/api/telegram/file/${movie.telegramMsgId}` : '');
+  if (effVideoUrl && effVideoUrl.trim() !== '') {
+    videoSource.src = effVideoUrl;
   } else {
     videoSource.src = '';
   }
