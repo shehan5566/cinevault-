@@ -252,6 +252,7 @@ function setupPlyrWithHls(srcUrl) {
       plyrInstance = new Plyr(video, {
         controls: ['play-large', 'play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
         settings: ['captions', 'quality', 'speed'],
+        captions: { active: true, language: 'auto', update: true },
         seekTime: 10,
         keyboard: { focused: true, global: true },
         quality: {
