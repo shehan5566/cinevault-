@@ -132,7 +132,7 @@ async function streamToResponse(messageId, req, res, { download = false, filenam
   }
   res.setHeader('Accept-Ranges', 'bytes');
   res.setHeader('Content-Length', end - start + 1);
-  res.setHeader('Content-Type', media.document.mimeType || 'video/x-matroska');
+  res.setHeader('Content-Type', download ? (media.document.mimeType || 'video/x-matroska') : 'video/mp4');
   if (download) {
     const safeAscii = finalFilename.replace(/["\\]/g, '').replace(/[^\x20-\x7E]/g, '_');
     res.setHeader('Content-Disposition', `attachment; filename="${safeAscii}"; filename*=UTF-8''${encodeURIComponent(finalFilename)}`);
