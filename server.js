@@ -356,6 +356,29 @@ app.get('/api/movies/:id', (req, res) => {
   res.json(movie);
 });
 
+// Diagnostic endpoint to check Telegram MTProto connectivity
+app.get('/api/debug/tg', async (req, res) => {
+  try {
+    const isConf = tgStorage.isConfigured();
+    const client = await tgStorage.getClient();
+    res.json({
+      success: true,
+      configured: isConf,
+      connected: !!client,
+      version: 'v2-recovery',
+      uptime: process.uptime()
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: err.message,
+      stack: err.stack,
+      version: 'v2-recovery',
+      uptime: process.uptime()
+    });
+  }
+});
+
 function upgradeTo4KPoster(url) {
   if (!url) return '';
   let p = url;
