@@ -48,7 +48,8 @@
     "notes": "A lawyer investigates his sister and brother-in-law's mysterious deaths in a remote village, discovering the presence of Baak, an evil shapeshifting entity.",
     "videoUrl": "/api/telegram/file/44",
     "telegramMsgId": 44,
-    "type": "movie"
+    "type": "movie",
+    "subtitleUrl": "/uploads/subtitles/aranmanai-4-2024.vtt"
   },
   {
     "id": "anjaam-pathiraa-2020",
@@ -100,7 +101,8 @@
     "notes": "A consulting criminologist assists the police in tracking down an elusive serial killer targeting police officers in Kochi with gruesome precision.",
     "videoUrl": "/api/telegram/file/42",
     "telegramMsgId": 42,
-    "type": "movie"
+    "type": "movie",
+    "subtitleUrl": "/uploads/subtitles/anjaam-pathiraa-2020.vtt"
   },
   {
     "id": "animal-2023",
@@ -151,7 +153,8 @@
     "notes": "A father-son relationship carved in blood and vengeance. Ranvijay goes on a relentless rampage after an assassination attempt on his father.",
     "videoUrl": "/api/telegram/file/40",
     "telegramMsgId": 40,
-    "imdbId": "tt13751694"
+    "imdbId": "tt13751694",
+    "subtitleUrl": "/uploads/subtitles/animal-2023.vtt"
   },
   {
     "id": "mov-1791884583553",
