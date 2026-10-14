@@ -1594,6 +1594,9 @@ uploadForm.addEventListener('submit', (e) => {
 
   uploadProgressContainer.style.display = 'block';
   uploadProgressBar.style.width = '0%';
+  if (uploadTrackIndicator) uploadTrackIndicator.style.width = '0%';
+  uploadPercentage.textContent = '0%';
+  uploadStatusText.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-fade"></i> Starting upload...';
 
   const globalUploadBadge = document.getElementById('globalUploadBadge');
   const globalUploadTitle = document.getElementById('globalUploadTitle');
@@ -1617,16 +1620,28 @@ uploadForm.addEventListener('submit', (e) => {
   }
 
   window.isUploadingActive = true;
+  const uploadStartTime = Date.now();
 
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '/api/movies', true);
 
   xhr.upload.onprogress = (event) => {
-    if (event.lengthComputable) {
-      const pct = Math.round((event.loaded / event.total) * 100);
+    if (event.lengthComputable && event.total > 0) {
+      const pct = Math.min(99, Math.round((event.loaded / event.total) * 100));
+      const loadedMB = (event.loaded / (1024 * 1024)).toFixed(1);
+      const totalMB = (event.total / (1024 * 1024)).toFixed(1);
+
+      const elapsedSec = (Date.now() - uploadStartTime) / 1000;
+      let speedText = '';
+      if (elapsedSec > 0.4 && event.loaded > 0) {
+        const speedMBps = ((event.loaded / (1024 * 1024)) / elapsedSec).toFixed(1);
+        speedText = ` • ${speedMBps} MB/s`;
+      }
+
       uploadProgressBar.style.width = `${pct}%`;
+      if (uploadTrackIndicator) uploadTrackIndicator.style.width = `${pct}%`;
       uploadPercentage.textContent = `${pct}%`;
-      uploadStatusText.textContent = pct < 100 ? `Uploading movie & subtitles... (${(event.loaded / (1024*1024)).toFixed(1)} MB)` : 'Processing video stream...';
+      uploadStatusText.innerHTML = `<i class="fa-solid fa-cloud-arrow-up fa-fade"></i> Uploading: ${loadedMB} MB / ${totalMB} MB${speedText}`;
 
       if (globalUploadPct) globalUploadPct.textContent = `${pct}%`;
       if (globalUploadBar) globalUploadBar.style.width = `${pct}%`;
@@ -1641,12 +1656,18 @@ uploadForm.addEventListener('submit', (e) => {
     if (navUploadProgress) navUploadProgress.style.display = 'none';
 
     if (xhr.status === 201 || xhr.status === 200) {
-      uploadProgressContainer.style.display = 'none';
-      uploadModal.classList.remove('active');
-      uploadForm.reset();
-      videoFileName.textContent = 'No video file selected';
-      fetchMovies();
-      alert('🎬 Movie and Subtitles added to your private collection!');
+      uploadProgressBar.style.width = '100%';
+      if (uploadTrackIndicator) uploadTrackIndicator.style.width = '100%';
+      uploadPercentage.textContent = '100%';
+      uploadStatusText.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i> Upload complete!';
+      setTimeout(() => {
+        uploadProgressContainer.style.display = 'none';
+        uploadModal.classList.remove('active');
+        uploadForm.reset();
+        videoFileName.textContent = 'No video file selected';
+        fetchMovies();
+        alert('🎬 Movie and Subtitles added to your private collection!');
+      }, 700);
     } else {
       alert('Failed to upload movie. Please try again.');
     }
@@ -1665,19 +1686,34 @@ uploadForm.addEventListener('submit', (e) => {
   formData.append('uploadId', uploadId);
   let tgTimer = null;
   xhr.upload.onload = () => {
+    uploadProgressBar.style.width = '100%';
+    if (uploadTrackIndicator) uploadTrackIndicator.style.width = '100%';
+    uploadPercentage.textContent = '100%';
+    uploadStatusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Finalizing movie stream & subtitles...';
+
     tgTimer = setInterval(async () => {
       try {
-        const r = await (await fetch(`/api/upload-progress/${uploadId}`)).json();
-        const label = r.stage === 'telegram' ? `Sending to Telegram... ${r.pct}%` : 'Preparing Telegram upload...';
-        uploadProgressBar.style.width = `${r.pct}%`;
-        uploadPercentage.textContent = `${r.pct}%`;
-        uploadStatusText.textContent = label;
-        if (globalUploadTitle) globalUploadTitle.textContent = `${movieTitleVal}: ${label}`;
-        if (globalUploadPct) globalUploadPct.textContent = `${r.pct}%`;
-        if (globalUploadBar) globalUploadBar.style.width = `${r.pct}%`;
-        if (navUploadText) navUploadText.textContent = `Telegram ${r.pct}%`;
+        const res = await fetch(`/api/upload-progress/${uploadId}`);
+        if (!res.ok) return;
+        const r = await res.json();
+        if (r && r.stage === 'telegram') {
+          const tPct = r.pct || 0;
+          uploadProgressBar.style.width = `${tPct}%`;
+          if (uploadTrackIndicator) uploadTrackIndicator.style.width = `${tPct}%`;
+          uploadPercentage.textContent = `${tPct}%`;
+          uploadStatusText.innerHTML = `<i class="fa-brands fa-telegram fa-beat"></i> Syncing to Telegram Cloud Storage... ${tPct}%`;
+          if (globalUploadTitle) globalUploadTitle.textContent = `${movieTitleVal}: Telegram ${tPct}%`;
+          if (globalUploadPct) globalUploadPct.textContent = `${tPct}%`;
+          if (globalUploadBar) globalUploadBar.style.width = `${tPct}%`;
+          if (navUploadText) navUploadText.textContent = `Telegram ${tPct}%`;
+        } else if (r && r.stage === 'done') {
+          uploadProgressBar.style.width = '100%';
+          if (uploadTrackIndicator) uploadTrackIndicator.style.width = '100%';
+          uploadPercentage.textContent = '100%';
+          uploadStatusText.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i> Upload complete!';
+        }
       } catch (e) {}
-    }, 1000);
+    }, 800);
   };
 
   xhr.send(formData);
