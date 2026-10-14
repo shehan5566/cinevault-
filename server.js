@@ -379,6 +379,73 @@ app.get('/api/debug/tg', async (req, res) => {
   }
 });
 
+// High-Definition Image Proxy (Bypasses hotlinking & CORS protection)
+app.get('/api/image-proxy', async (req, res) => {
+  const { url } = req.query;
+  if (!url) return res.status(400).send('URL required');
+  try {
+    const response = await axios.get(url, {
+      responseType: 'arraybuffer',
+      timeout: 10000,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
+      }
+    });
+    const contentType = response.headers['content-type'] || 'image/jpeg';
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
+    res.send(Buffer.from(response.data));
+  } catch (err) {
+    res.redirect(url);
+  }
+});
+
+// Dynamic Actor Avatar Resolver with Wikipedia / Actor Cache
+app.get('/api/actor-avatar', async (req, res) => {
+  const name = (req.query.name || '').trim();
+  if (!name) return res.status(400).json({ error: 'Name required' });
+
+  // 1. Check in-memory / JSON cache
+  const cachedUrl = actorAvatarCache[name] || actorAvatarCache[name.toLowerCase()];
+  if (cachedUrl) {
+    return res.json({
+      name,
+      imageUrl: cachedUrl,
+      proxyUrl: `/api/image-proxy?url=${encodeURIComponent(cachedUrl)}`
+    });
+  }
+
+  // 2. Query Wikipedia API for high-resolution studio / Commons portrait
+  try {
+    const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(name)}&prop=pageimages&format=json&pithumbsize=600`;
+    const response = await axios.get(wikiUrl, {
+      timeout: 6000,
+      headers: { 'User-Agent': 'CineVaultMovieLibrary/1.0 (admin@cinevault.lk)' }
+    });
+    const pages = response.data?.query?.pages;
+    const page = pages ? Object.values(pages)[0] : null;
+    const foundThumb = page?.thumbnail?.source;
+
+    if (foundThumb) {
+      actorAvatarCache[name] = foundThumb;
+      actorAvatarCache[name.toLowerCase()] = foundThumb;
+      saveActorAvatarCache();
+      return res.json({
+        name,
+        imageUrl: foundThumb,
+        proxyUrl: `/api/image-proxy?url=${encodeURIComponent(foundThumb)}`
+      });
+    }
+  } catch (err) {
+    console.warn(`[Actor Avatar] Search notice for ${name}:`, err.message);
+  }
+
+  // 3. Fallback avatar
+  const fallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=181826&color=e50914&size=300&bold=true`;
+  res.json({ name, imageUrl: fallback, proxyUrl: fallback });
+});
+
 function upgradeTo4KPoster(url) {
   if (!url) return '';
   let p = url;
