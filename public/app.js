@@ -65,6 +65,7 @@ const btnSelectPoster = document.getElementById('btnSelectPoster');
 const subtitleFileInput = document.getElementById('subtitleFileInput');
 const uploadProgressContainer = document.getElementById('uploadProgressContainer');
 const uploadProgressBar = document.getElementById('uploadProgressBar');
+const uploadTrackIndicator = document.getElementById('uploadTrackIndicator');
 const uploadStatusText = document.getElementById('uploadStatusText');
 const uploadPercentage = document.getElementById('uploadPercentage');
 
