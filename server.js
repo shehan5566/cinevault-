@@ -356,6 +356,11 @@ app.get('/api/movies/:id', (req, res) => {
   res.json(movie);
 });
 
+// Lightweight 24/7 Health Check & Keep-Alive Ping Endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', uptime: process.uptime(), timestamp: Date.now() });
+});
+
 // Diagnostic endpoint to check Telegram MTProto connectivity
 app.get('/api/debug/tg', async (req, res) => {
   try {
