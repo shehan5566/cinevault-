@@ -1580,9 +1580,20 @@ app.get('/api/actor-avatar', async (req, res) => {
   const cleanName = actorName.trim();
   const lowerName = cleanName.toLowerCase();
 
-  // 1. Check persistent memory cache (Immediate sub-millisecond response)
-  if (actorAvatarCache[lowerName] && typeof actorAvatarCache[lowerName] === 'string' && actorAvatarCache[lowerName].startsWith('http')) {
-    const cachedUrl = actorAvatarCache[lowerName];
+  // 1. Check persistent memory cache and disk cache
+  let cachedUrl = actorAvatarCache[lowerName] || actorAvatarCache[cleanName];
+  if (!cachedUrl && fs.existsSync(ACTOR_CACHE_FILE)) {
+    try {
+      const diskCache = JSON.parse(fs.readFileSync(ACTOR_CACHE_FILE, 'utf8'));
+      cachedUrl = diskCache[lowerName] || diskCache[cleanName];
+      if (cachedUrl) {
+        actorAvatarCache[lowerName] = cachedUrl;
+        actorAvatarCache[cleanName] = cachedUrl;
+      }
+    } catch (e) {}
+  }
+
+  if (cachedUrl && typeof cachedUrl === 'string' && cachedUrl.startsWith('http') && !cachedUrl.includes('unsplash.com')) {
     return res.json({ 
       success: true, 
       imageUrl: cachedUrl, 
