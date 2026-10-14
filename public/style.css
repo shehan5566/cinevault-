@@ -2365,3 +2365,120 @@ textarea {
   border-color: #e50914;
   background: rgba(255, 255, 255, 0.08);
 }
+
+/* ==========================================================================
+   CINEVAULT PREMIUM RED AUTO-FILL UPLOAD PROGRESS FIELD
+   ========================================================================== */
+.upload-progress-container {
+  position: relative;
+  overflow: hidden;
+  background: #090c10;
+  border: 1px solid rgba(229, 9, 20, 0.45);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 18px 0;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dynamic Red Gradient Background Fill */
+.upload-progress-container .progress-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, #590408 0%, #990a12 30%, #d80b16 70%, #ff2a38 100%);
+  border-radius: 11px;
+  transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.85);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+/* Moving Light Shimmer over the Red Fill */
+.upload-progress-container .progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: cvProgressShimmer 2s infinite linear;
+  border-radius: 11px;
+}
+
+@keyframes cvProgressShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Crisp Floating Info Text on top of the Red Fill */
+.upload-progress-container .progress-info {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.3px;
+}
+
+.upload-progress-container #uploadStatusText {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.upload-progress-container #uploadStatusText i {
+  color: #ff4d5a;
+  font-size: 1.1rem;
+}
+
+/* Glowing Percentage Pill Badge */
+.upload-progress-container #uploadPercentage {
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  margin-left: 14px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.5px;
+}
+
+/* Laser-line Track Indicator at Bottom Edge */
+.upload-progress-container .progress-track-line {
+  position: relative;
+  z-index: 3;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.upload-progress-container .progress-track-indicator {
+  height: 100%;
+  width: 0%;
+  background: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #ff2a38;
+  transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
