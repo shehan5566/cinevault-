@@ -362,6 +362,25 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', uptime: process.uptime(), timestamp: Date.now() });
 });
 
+// Auto-Enrich Movie Cast to Strictly 10 Verified Studio Portraits
+app.post('/api/enrich-cast/:id', async (req, res) => {
+  try {
+    const movies = getMovies();
+    const movie = movies.find(m => m.id === req.params.id);
+    if (!movie) return res.status(404).json({ error: 'Movie not found' });
+    const result = await resolveStrict10CastWithPhotos(movie.title, movie.year);
+    if (result && result.cast && result.cast.length > 0) {
+      movie.cast = result.cast;
+      movie.castImages = { ...(movie.castImages || {}), ...result.castImages };
+      saveMovies(movies);
+      return res.json({ success: true, cast: movie.cast, castImages: movie.castImages });
+    }
+    res.status(404).json({ error: 'Could not auto-resolve cast for movie' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Diagnostic endpoint to check Telegram MTProto connectivity
 app.get('/api/debug/tg', async (req, res) => {
   try {
