@@ -1840,6 +1840,19 @@ app.listen(PORT, () => {
     .then(() => console.log('⚡ [Telegram MTProto] Cloud connection pre-warmed & ready.'))
     .catch(err => console.warn('⚠️ [Telegram MTProto] Pre-warm notice:', err.message));
 
+  // 24/7 Keep-Alive Pinger (Prevents Render Free Tier 15-minute inactivity spin down)
+  const RENDER_EXTERNAL_URL = process.env.RENDER_EXTERNAL_URL || 'https://cinevault-ucw6.onrender.com';
+  const PING_INTERVAL_MS = 10 * 60 * 1000; // Every 10 minutes
+  setInterval(() => {
+    axios.get(`${RENDER_EXTERNAL_URL}/api/health`, { timeout: 15000 })
+      .then(res => console.log(`🕒 [Keep-Alive] Pinged ${RENDER_EXTERNAL_URL}/api/health => Status ${res.status}`))
+      .catch(err => console.warn(`⚠️ [Keep-Alive] Ping notice:`, err.message));
+  }, PING_INTERVAL_MS);
+
+  setTimeout(() => {
+    axios.get(`${RENDER_EXTERNAL_URL}/api/health`, { timeout: 15000 }).catch(() => {});
+  }, 30000);
+
   // Initialize Auto-Git-Sync to automatically push local changes to GitHub & Render
   if (process.env.NODE_ENV !== 'production') {
     try {
