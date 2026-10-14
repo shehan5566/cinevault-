@@ -323,6 +323,18 @@
     "inWatchlist": true,
     "progressSeconds": 12,
     "addedDate": "2026-10-12T04:13:09.021Z",
-    "telegramMsgId": 30
+    "telegramMsgId": 30,
+    "castImages": {
+      "Jagadish": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Jagadish_-_Thriller_Express_-_Asianet_Tour_-_Atlanata.jpg/960px-Jagadish_-_Thriller_Express_-_Asianet_Tour_-_Atlanata.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Aju Varghese": "https://upload.wikimedia.org/wikipedia/commons/4/49/Aju_Varghese_inaugural_speech_SARGAM_SJCET.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Aishwarya Rajesh": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Aishwarya_Rajesh_at_Rummy_Audio_Launch.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Tovino Thomas": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Tovino_Thomas_At_The_%E2%80%98Maari_2%E2%80%99_Press_Meet.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Biju Kuttan": "https://upload.wikimedia.org/wikipedia/commons/6/67/Bijukuttan.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Harish Uthaman": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Harish-uthaman-still-3.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Surabhi Lakshmi": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Surabhi_Lakkshmi.jpg/960px-Surabhi_Lakkshmi.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Basil Joseph": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Basil_Joseph_2023s_%28cropped%29.jpg/960px-Basil_Joseph_2023s_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Sanju Sivram": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Sanju_Sivram.jpg/960px-Sanju_Sivram.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Krithi Shetty": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Krithi_Shetty_in_2024_2_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+    }
   }
 ]
