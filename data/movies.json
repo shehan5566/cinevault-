@@ -1,5 +1,56 @@
 [
   {
+    "id": "animal-2023",
+    "title": "Animal (2023)",
+    "sinhalaTitle": "ඇනිමල් (සිංහල උපසිරැසි සමඟ)",
+    "year": 2023,
+    "director": "Sandeep Reddy Vanga",
+    "cast": [
+      "Ranbir Kapoor",
+      "Anil Kapoor",
+      "Bobby Deol",
+      "Rashmika Mandanna",
+      "Triptii Dimri",
+      "Shakti Kapoor",
+      "Prem Chopra",
+      "Saurabh Sachdeva",
+      "Suresh Oberoi",
+      "Anshul Chauhan"
+    ],
+    "castImages": {
+      "Ranbir Kapoor": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Ranbir_Kapoor_at_Ramayana_special_event_in_Sep_26_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Anil Kapoor": "https://upload.wikimedia.org/wikipedia/commons/0/08/Anil_Kapoor_1.jpeg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Bobby Deol": "https://upload.wikimedia.org/wikipedia/commons/0/01/Lord_Bobby_2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Rashmika Mandanna": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Rashmika-Mandanna_at_the_music_launch_of_Chhaava_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Triptii Dimri": "https://upload.wikimedia.org/wikipedia/commons/4/46/Triptii_Dimri_snapped_outside_Leap_Club_in_Santacruz_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Shakti Kapoor": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Shakti_Kapoor_at_Rajesh_Khanna%27s_prayer_meet_26.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Prem Chopra": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Prem_Chopra_on_November_21%2C_2013.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Saurabh Sachdeva": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Saurabh_sachdeva.jpg/960px-Saurabh_sachdeva.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Suresh Oberoi": "https://upload.wikimedia.org/wikipedia/commons/2/22/Suresh_Oberoi_at_Rajesh_Khanna%27s_prayer_meet_50_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Anshul Chauhan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Anshul_Chauhan_at_JAPANNUAL_2023-portrait_PNr%C2%B01079b.jpg/960px-Anshul_Chauhan_at_JAPANNUAL_2023-portrait_PNr%C2%B01079b.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    },
+    "genre": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
+    "duration": "3h 21m",
+    "quality": "1080p WEB-DL",
+    "fileSize": "2.8 GB",
+    "language": "Hindi",
+    "personalRating": 8.5,
+    "watched": false,
+    "isFavorite": true,
+    "inWatchlist": false,
+    "addedDate": "2026-10-14T05:58:17.737Z",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNGViM2M4NmUtMmNkNy00MTQ5LTk5MDYtNmNhODAzODkwOTJlXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "backdropUrl": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1600&auto=format&fit=crop",
+    "notes": "A father-son relationship carved in blood and vengeance. Ranvijay goes on a relentless rampage after an assassination attempt on his father.",
+    "videoUrl": "",
+    "telegramMsgId": null,
+    "imdbId": "tt13751694"
+  },
+  {
     "id": "mov-1791884583553",
     "title": "Amaran (2024)",
     "sinhalaTitle": "Amaran (2024) (Subtitled)",
