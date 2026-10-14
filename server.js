@@ -20,14 +20,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Track active Telegram cloud upload progress
-const tgUploadProgress = {};
-
-app.get('/api/upload-progress/:uploadId', (req, res) => {
-  const p = tgUploadProgress[req.params.uploadId] || { pct: 0, stage: 'waiting' };
-  res.json(p);
-});
-
 // Storage configuration for Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
