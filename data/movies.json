@@ -49,7 +49,8 @@
     "videoUrl": "/api/telegram/file/44",
     "telegramMsgId": 44,
     "type": "movie",
-    "subtitleUrl": "/uploads/subtitles/aranmanai-4-2024.vtt"
+    "subtitleUrl": "/uploads/subtitles/aranmanai-4-2024.vtt",
+    "progressSeconds": 90
   },
   {
     "id": "anjaam-pathiraa-2020",
