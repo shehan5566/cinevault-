@@ -19,14 +19,14 @@
     "cast": [
       "Sivakarthikeyan",
       "Sai Pallavi",
-      "Bhuvan Arora",
       "Rahul Bose",
-      "Lallu",
-      "Shreekumar",
+      "Bhuvan Arora",
+      "Shyamaprasad",
       "Shyam Mohan",
       "Geetha Kailasam",
-      "Umair Lateef",
-      "Rohan Verma"
+      "Lallu",
+      "Shreekumar",
+      "John Kaipallil"
     ],
     "imdbRating": 8.1,
     "personalRating": 8.1,
@@ -42,7 +42,19 @@
     "isFavorite": false,
     "inWatchlist": true,
     "progressSeconds": 1995,
-    "addedDate": "2026-10-13T09:43:03.553Z"
+    "addedDate": "2026-10-13T09:43:03.553Z",
+    "castImages": {
+      "Sivakarthikeyan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Sivakarthikeyan_%28cropped%29.jpg/500px-Sivakarthikeyan_%28cropped%29.jpg",
+      "Sai Pallavi": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Sai_Pallavi_at_Ramayana_special_event_in_September_2026_%28cropped%29.jpg",
+      "Rahul Bose": "https://upload.wikimedia.org/wikipedia/commons/7/72/Rahul_Bose_Tahaan.jpg",
+      "Bhuvan Arora": "https://upload.wikimedia.org/wikipedia/commons/3/34/Bhuvan_Arora_2023_%28cropped%29.jpg",
+      "Shyamaprasad": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Shyamaprasad.jpg",
+      "Shyam Mohan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Shyam_Mohan_02.jpg/500px-Shyam_Mohan_02.jpg",
+      "Geetha Kailasam": "https://images.filmibeat.com/img/popcorn/profile_photos/geetha-kailasam-20240930165025-57232.jpg",
+      "Lallu": "https://www.filmibeat.com/img/popcorn/profile_photos/lallu-20241008123047-46165.jpg",
+      "Shreekumar": "https://nettv4u.com/imagine/Shree.JPG",
+      "John Kaipallil": "https://nettv4u.com/imagine/j/o/h/n/0/k/john-kaippallil.png"
+    }
   },
   {
     "id": "mov-1791884167321",
