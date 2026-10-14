@@ -43,3 +43,11 @@
 - `auto_git_sync.js` runs automatically with `server.js` locally to watch project changes and push them within seconds.
 - Render automatically detects the GitHub push and deploys the live production site without manual intervention.
 
+## 8. PERMANENT PRODUCTION LOCK & ANTI-REGRESSION RULES (IMMUTABLE BASELINE)
+- **MTProto Independent Sessions:** Never re-introduce a hardcoded shared `StringSession` in `tgstorage.js`. Keep the independent bot session generation and auto-recovery logic (`AUTH_KEY_DUPLICATED`) intact so Render production and local development never collide.
+- **Pre-Warmed Cloud Connection:** Keep the `tgStorage.getClient()` pre-warm call in `server.js` `app.listen()` so video playback is instantaneous.
+- **Embedded Subtitles & Single-File MKV:** All 85 WebVTT subtitles in `uploads/subtitles/` must remain tracked in git. The single direct download route (`/api/movies/:id/download`) must always serve `.mkv` files directly.
+- **Player & UI Design Integrity:** Preserve the Cinesubz dark theme, Plymouth/Plyr player configurations, custom video controls, and the exact 10-cast members per movie rule.
+- **Zero Local Disk Space:** Never store video files permanently on local PC or Render ephemeral disk. Always delete temporary upload videos immediately after Telegram MTProto upload completes.
+- **Immutable State Protection:** No agent or automated process may rewrite, delete, or roll back these core features without explicit, unambiguous user confirmation.
+
