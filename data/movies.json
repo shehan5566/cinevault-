@@ -23,10 +23,10 @@
       "Bhuvan Arora",
       "Shyamaprasad",
       "Shyam Mohan",
-      "Geetha Kailasam",
+      "Haethakshi V.",
       "Lallu",
-      "Shreekumar",
-      "John Kaipallil"
+      "Anbu Thasan",
+      "Shreekumar"
     ],
     "imdbRating": 8.1,
     "personalRating": 8.1,
@@ -44,16 +44,18 @@
     "progressSeconds": 1995,
     "addedDate": "2026-10-13T09:43:03.553Z",
     "castImages": {
-      "Sivakarthikeyan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Sivakarthikeyan_%28cropped%29.jpg/500px-Sivakarthikeyan_%28cropped%29.jpg",
-      "Sai Pallavi": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Sai_Pallavi_at_Ramayana_special_event_in_September_2026_%28cropped%29.jpg",
-      "Rahul Bose": "https://upload.wikimedia.org/wikipedia/commons/7/72/Rahul_Bose_Tahaan.jpg",
-      "Bhuvan Arora": "https://upload.wikimedia.org/wikipedia/commons/3/34/Bhuvan_Arora_2023_%28cropped%29.jpg",
-      "Shyamaprasad": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Shyamaprasad.jpg",
-      "Shyam Mohan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Shyam_Mohan_02.jpg/500px-Shyam_Mohan_02.jpg",
+      "Sivakarthikeyan": "https://upload.wikimedia.org/wikipedia/commons/7/76/Sivakarthikeyan_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Sai Pallavi": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Sai_Pallavi_at_Ramayana_special_event_in_September_2026_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Rahul Bose": "https://upload.wikimedia.org/wikipedia/commons/7/72/Rahul_Bose_Tahaan.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Bhuvan Arora": "https://upload.wikimedia.org/wikipedia/commons/3/34/Bhuvan_Arora_2023_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Shyamaprasad": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Shyamaprasad.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Shyam Mohan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Shyam_Mohan_02.jpg/960px-Shyam_Mohan_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
       "Geetha Kailasam": "https://images.filmibeat.com/img/popcorn/profile_photos/geetha-kailasam-20240930165025-57232.jpg",
-      "Lallu": "https://www.filmibeat.com/img/popcorn/profile_photos/lallu-20241008123047-46165.jpg",
-      "Shreekumar": "https://nettv4u.com/imagine/Shree.JPG",
-      "John Kaipallil": "https://nettv4u.com/imagine/j/o/h/n/0/k/john-kaippallil.png"
+      "Lallu": "",
+      "Shreekumar": "",
+      "John Kaipallil": "https://nettv4u.com/imagine/j/o/h/n/0/k/john-kaippallil.png",
+      "Haethakshi V.": "",
+      "Anbu Thasan": ""
     }
   },
   {
@@ -76,14 +78,14 @@
     "cast": [
       "Nandamuri Balakrishna",
       "Aadhi Pinisetty",
-      "Samyuktha Menon",
+      "Samyuktha (actress)",
       "Harshaali Malhotra",
       "Viji Chandrasekhar",
       "Saswata Chatterjee",
       "Sangay Tsheltrim",
       "Sarvadaman D. Banerjee",
       "Kabir Duhan Singh",
-      "Poorna"
+      "Shamna Kasim"
     ],
     "imdbRating": 5.3,
     "personalRating": 5.3,
@@ -99,7 +101,19 @@
     "isFavorite": false,
     "inWatchlist": true,
     "progressSeconds": 0,
-    "addedDate": "2026-10-13T09:36:07.321Z"
+    "addedDate": "2026-10-13T09:36:07.321Z",
+    "castImages": {
+      "Nandamuri Balakrishna": "https://upload.wikimedia.org/wikipedia/commons/6/65/Padma_Bhushan_Award_to_Shri_Nandamuri_Balakrishna_at_the_Rashtrapati_Bhavan_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Aadhi Pinisetty": "https://upload.wikimedia.org/wikipedia/commons/7/72/Aadhi_Pinisetty_at_Maragatha_Naanayam_audio_launch_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Samyuktha (actress)": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Samyuktha_Menon.jpg/960px-Samyuktha_Menon.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Harshaali Malhotra": "https://upload.wikimedia.org/wikipedia/commons/6/60/Harshaali_Malhotra_at_the_premiere_of_Salaam_Venky_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Viji Chandrasekhar": "https://starsunfolded.com/wp-content/uploads/2019/12/Viji-Chandrasekhar.jpg",
+      "Saswata Chatterjee": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Saswata_Chatterjee.webp?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Sangay Tsheltrim": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Sangay_Tsheltrim_01.jpg/960px-Sangay_Tsheltrim_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Sarvadaman D. Banerjee": "https://starsunfolded.com/wp-content/uploads/2020/05/Sarvadaman-D-Banerjee.jpg",
+      "Kabir Duhan Singh": "https://upload.wikimedia.org/wikipedia/commons/5/51/KabirDuhan_Singh.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Shamna Kasim": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Actress_Poorna.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+    }
   },
   {
     "id": "mov-1791804101372",
@@ -121,14 +135,14 @@
     "cast": [
       "Jayaram",
       "Mammootty",
-      "Anoop Menon",
       "Anaswara Rajan",
-      "Arjun Ashokan",
-      "Jagadish",
-      "Senthil Krishna",
       "Saiju Kurup",
-      "Dileesh Pothan",
-      "Arya Salim"
+      "Arjun Ashokan",
+      "Anoop Menon",
+      "Arya Salim",
+      "Senthil Krishna",
+      "Jagadish",
+      "Dileesh Pothan"
     ],
     "imdbRating": 6.6,
     "personalRating": 6.6,
@@ -144,7 +158,19 @@
     "isFavorite": false,
     "inWatchlist": true,
     "progressSeconds": 0,
-    "addedDate": "2026-10-12T11:21:41.372Z"
+    "addedDate": "2026-10-12T11:21:41.372Z",
+    "castImages": {
+      "Jayaram": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Jayaram%2C_actor_photograph_%28cropped%29.jpg/960px-Jayaram%2C_actor_photograph_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Mammootty": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Mammootty%2C_2022.jpg/960px-Mammootty%2C_2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Anaswara Rajan": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Anaswara_Rajan.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Saiju Kurup": "https://upload.wikimedia.org/wikipedia/commons/9/99/Saiju_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Arjun Ashokan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Arjun_Ashokan_2026.jpg/960px-Arjun_Ashokan_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Anoop Menon": "https://media.themoviedb.org/t/p/w500/bQTaoXeuG0Mf3GbwATsfdNFwzKN.jpg",
+      "Arya Salim": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/ARYA.jpg/960px-ARYA.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Senthil Krishna": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Senthil_Krishna_IMG_20220907_212516_%28cropped%29.jpg/960px-Senthil_Krishna_IMG_20220907_212516_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Jagadish": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Jagadish_-_Thriller_Express_-_Asianet_Tour_-_Atlanata.jpg/960px-Jagadish_-_Thriller_Express_-_Asianet_Tour_-_Atlanata.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Dileesh Pothan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Dileesh_Pothan_2019.jpg/960px-Dileesh_Pothan_2019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    }
   },
   {
     "id": "mov-1791786965028",
@@ -164,15 +190,15 @@
     "director": "Jithu Madhavan",
     "cast": [
       "Fahadh Faasil",
-      "Hipzster",
-      "Mithun Jai Shankar",
-      "Roshan Shanavas",
       "Sajin Gopu",
-      "Mansoor Ali Khan",
-      "Ashish Vidyarthi",
+      "Hipzster",
+      "Roshan Shanavas",
       "Midhutty",
+      "Neeraja Rajendran",
+      "Thankam Mohan",
       "Pooja Mohanraj",
-      "Neeraja Rajendran"
+      "Ashish Vidyarthi",
+      "Mansoor Ali Khan (actor)"
     ],
     "imdbRating": 7.8,
     "personalRating": 7.8,
@@ -188,7 +214,19 @@
     "inWatchlist": true,
     "progressSeconds": 1,
     "addedDate": "2026-10-12T06:36:05.028Z",
-    "telegramMsgId": 27
+    "telegramMsgId": 27,
+    "castImages": {
+      "Fahadh Faasil": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Fahadh_Faasil_2019.jpg/960px-Fahadh_Faasil_2019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Sajin Gopu": "https://image.tmdb.org/t/p/original/s6bE8EQriP078Ml7JGVgdzMa0aM.jpg",
+      "Hipzster": "https://nettv4u.com/imagine/16-05-2024/hipzster.png",
+      "Roshan Shanavas": "https://images.filmibeat.com/img/popcorn/profile_photos/roshanshanavas-20240410175247-62781.jpg",
+      "Midhutty": "https://images.filmibeat.com/popcorn/og-images/midhutty-62782-og.jpg",
+      "Neeraja Rajendran": "https://nettv4u.com/imagine/01-08-2022/neeraja-rajendran.jpg",
+      "Thankam Mohan": "https://m.media-amazon.com/images/M/MV5BZDE4ZmFiYzQtOWI4Mi00ZjAyLWEwYmMtY2NhN2FjNTJlMjhhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+      "Pooja Mohanraj": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Pooja_Mohanraj.jpg/960px-Pooja_Mohanraj.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "Ashish Vidyarthi": "https://upload.wikimedia.org/wikipedia/commons/d/db/Aashish_Vidyarthi.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "Mansoor Ali Khan (actor)": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Mansoor_Ali_Khan_%28JPG%29.jpg/960px-Mansoor_Ali_Khan_%28JPG%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    }
   },
   {
     "id": "mov-1791778389021",
