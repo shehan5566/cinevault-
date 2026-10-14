@@ -661,17 +661,18 @@ window.openPlayerModal = openPlayerModal;
     videoSource.src = '';
   }
 
-  if (movie.subtitleUrl) {
-    setPlayerSubtitle(movie.subtitleUrl);
-  } else {
-    setPlayerSubtitle('');
-  }
   mainVideoPlayer.autoplay = false;
   mainVideoPlayer.removeAttribute('autoplay');
   mainVideoPlayer.pause();
   mainVideoPlayer.load();
   mainVideoPlayer.pause();
   mainVideoPlayer.autoplay = false;
+
+  if (movie.subtitleUrl) {
+    setPlayerSubtitle(movie.subtitleUrl);
+  } else {
+    setPlayerSubtitle('');
+  }
 
   mainVideoPlayer.currentTime = 0; // Always start movie from the very beginning (0:00)
 

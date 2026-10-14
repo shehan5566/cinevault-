@@ -8,6 +8,7 @@ for (const id of [40, 42, 44]) {
     execSync(`"${ffmpeg}" -i "${url}"`, { stdio: 'pipe', timeout: 20000 });
   } catch (err) {
     const output = (err.stderr ? err.stderr.toString() : err.message);
-    console.log('Msg', id, 'Output:\n', output.slice(1000, 3000));
+    const lines = output.split('\n').filter(l => l.includes('Stream #'));
+    console.log('Msg', id, 'Streams:\n', lines.join('\n'));
   }
 }
