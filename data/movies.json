@@ -154,7 +154,8 @@
     "videoUrl": "/api/telegram/file/40",
     "telegramMsgId": 40,
     "imdbId": "tt13751694",
-    "subtitleUrl": "/uploads/subtitles/animal-2023.vtt"
+    "subtitleUrl": "/uploads/subtitles/animal-2023.vtt",
+    "progressSeconds": 102
   },
   {
     "id": "mov-1791884583553",
