@@ -306,12 +306,16 @@ function setPlayerSubtitle(subtitleUrl) {
   existingTracks.forEach(t => t.remove());
 
   if (subtitleUrl && subtitleUrl.trim() !== '') {
+    // Add cache buster so browser never serves stale cached subtitle
+    const cacheBuster = subtitleUrl.includes('?') ? '&v=' + Date.now() : '?v=' + Date.now();
+    const finalUrl = subtitleUrl + cacheBuster;
+
     const track = document.createElement('track');
     track.id = 'videoSubtitleTrack';
     track.kind = 'subtitles';
     track.label = 'Sinhala';
     track.srclang = 'si';
-    track.src = subtitleUrl;
+    track.src = finalUrl;
     track.default = true;
     video.appendChild(track);
 
@@ -332,6 +336,7 @@ function setPlayerSubtitle(subtitleUrl) {
     track.addEventListener('load', activateTracks);
     setTimeout(activateTracks, 200);
     setTimeout(activateTracks, 800);
+    setTimeout(activateTracks, 1800);
   }
 }
 
