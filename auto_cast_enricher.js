@@ -47,23 +47,25 @@ async function resolveStrict10CastWithPhotos(movieTitle, movieYear = null) {
     });
 
     const wikitext = parseRes.data?.parse?.wikitext?.['*'] || '';
-    const castIndex = wikitext.indexOf('== Cast ==');
-    if (castIndex === -1) return null;
+    const castMatch = wikitext.match(/==\s*Cast\s*==/i);
+    if (!castMatch) return null;
+    const castIndex = castMatch.index;
 
-    const castChunk = wikitext.slice(castIndex, castIndex + 8000);
+    const castChunk = wikitext.slice(castIndex, castIndex + 12000);
     const lines = castChunk.split('\n');
     const candidates = [];
 
-    for (const line of lines) {
-      if (line.startsWith('==') && line !== '== Cast ==') break;
+    for (let l = 1; l < lines.length; l++) {
+      const line = lines[l];
+      if (/^==[^=]/.test(line)) break;
       // Match [[Actor Name]] or plain Actor Name before 'as'
-      const match = line.match(/^\*\s*(?:\[\[([^\]|]+)(?:\|[^\]]+)?\]\]|([A-Z][a-zA-Z\s\.\-]+?)\s+as\s)/);
+      const match = line.match(/^\*+\s*(?:\[\[([^\]|]+)(?:\|[^\]]+)?\]\]|([A-Z][a-zA-Z\s\.\-]+?)\s+as\s)/);
       if (match) {
         const rawName = (match[1] || match[2] || '').trim();
         // Ignore roles or metadata tags
         if (
           rawName &&
-          !/young|rank|dual|role|cameo|special|voice|uncredited|himself|herself/i.test(rawName) &&
+          !/young|rank|dual|role|cameo|special|voice|uncredited|himself|herself|sepoy|colonel|major/i.test(rawName) &&
           !candidates.includes(rawName)
         ) {
           candidates.push(rawName);
@@ -74,7 +76,7 @@ async function resolveStrict10CastWithPhotos(movieTitle, movieYear = null) {
     if (candidates.length === 0) return null;
 
     // 3. Batch query Wikimedia Commons for high-definition studio portraits
-    const titlesQuery = candidates.slice(0, 30).map(c => encodeURIComponent(c)).join('|');
+    const titlesQuery = candidates.slice(0, 40).map(c => encodeURIComponent(c)).join('|');
     const imageRes = await axios.get(
       `https://en.wikipedia.org/w/api.php?action=query&titles=${titlesQuery}&prop=pageimages&format=json&pithumbsize=600`,
       {
@@ -114,12 +116,10 @@ async function resolveStrict10CastWithPhotos(movieTitle, movieYear = null) {
     const finalImages = {};
 
     finalCast.forEach(actor => {
-      const img = photoMap[actor] || '';
+      const img = photoMap[actor] || existingCache[actor] || existingCache[actor.toLowerCase()] || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop';
       finalImages[actor] = img;
-      if (img) {
-        existingCache[actor] = img;
-        existingCache[actor.toLowerCase()] = img;
-      }
+      existingCache[actor] = img;
+      existingCache[actor.toLowerCase()] = img;
     });
 
     saveActorCache(existingCache);
