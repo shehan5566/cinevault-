@@ -870,37 +870,35 @@ async function autoResolveMovieMetadata(title) {
     }
   } catch (err) {}
 
-  // 3. Wikipedia with proper User-Agent for Director & Cast (to guarantee >= 10 cast)
+  // 3. Resolve Director & Strictly Exactly 10 Cast with Photos
   try {
-    const wikiHeaders = { 'User-Agent': 'CineVaultMovieBot/1.0 (contact@cinevault.local)' };
-    const searchRes = await axios.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(result.title || cleanTitle)}&limit=3&format=json`, {
-      headers: wikiHeaders,
-      timeout: 3500
-    });
-    const pageTitle = searchRes.data?.[1]?.[0];
-    if (pageTitle) {
-      const wikiRes = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&titles=${encodeURIComponent(pageTitle)}&format=json`, {
+    const enriched = await resolveStrict10CastWithPhotos(result.title || cleanTitle, result.year || cleaned.year);
+    if (enriched && enriched.cast && enriched.cast.length > 0) {
+      result.cast = enriched.cast;
+      if (enriched.castImages) {
+        Object.assign(actorAvatarCache, enriched.castImages);
+        saveActorAvatarCache();
+      }
+    }
+
+    // If director is still missing, lookup Wikipedia Infobox
+    if (!result.director) {
+      const wikiHeaders = { 'User-Agent': 'CineVaultMovieBot/1.0 (contact@cinevault.local)' };
+      const wikiQuery = `${result.title || cleanTitle} ${result.year || cleaned.year || ''} film`.trim();
+      const searchRes = await axios.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(wikiQuery)}&limit=3&format=json`, {
         headers: wikiHeaders,
         timeout: 3500
       });
-      const txt = Object.values(wikiRes.data?.query?.pages || {})[0]?.revisions?.[0]?.['*'] || '';
-      
-      // Director from Infobox
-      if (!result.director) {
+      const pageTitle = searchRes.data?.[1]?.[0];
+      if (pageTitle) {
+        const wikiRes = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&titles=${encodeURIComponent(pageTitle)}&format=json`, {
+          headers: wikiHeaders,
+          timeout: 3500
+        });
+        const txt = Object.values(wikiRes.data?.query?.pages || {})[0]?.revisions?.[0]?.['*'] || '';
         const dirMatch = txt.match(/\|\s*director\s*=\s*\[\[([^\]\|]+)(?:\|[^\]]+)?\]\]/i);
         if (dirMatch) result.director = dirMatch[1].trim();
       }
-
-      // Cast listing
-      const castSectionMatch = txt.match(/(?:==\s*Cast\s*==|{{Cast listing\|)([\s\S]*?)(?===|\n\n==|\}\})/i);
-      const searchBlock = castSectionMatch ? castSectionMatch[1] : txt;
-      const wikiActors = (searchBlock.match(/\[\[([^\]\|]+)(?:\|[^\]]+)?\]\]/g) || [])
-        .map(m => m.replace(/\[\[|\]\]/g, '').split('|')[0].trim())
-        .filter(cleanActorName);
-      
-      wikiActors.forEach(a => {
-        if (!result.cast.includes(a)) result.cast.push(a);
-      });
     }
   } catch (err) {}
 
