@@ -797,7 +797,9 @@ window.openPlayerModal = openPlayerModal;
       const avatarImgId = `cast-avatar-img-${idx}-${Date.now()}`;
       const initialFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanActor)}&background=181826&color=e50914&size=300&bold=true`;
       
-      const cached = window.actorClientCache[cleanActor.toLowerCase()];
+      const directMovieImg = movie.castImages && (movie.castImages[cleanActor] || movie.castImages[cleanActor.toLowerCase()]);
+      const proxiedDirectImg = directMovieImg ? `/api/image-proxy?url=${encodeURIComponent(directMovieImg)}` : null;
+      const cached = proxiedDirectImg || window.actorClientCache[cleanActor.toLowerCase()];
       const initialSrc = cached || initialFallback;
 
       if (!cached) {
