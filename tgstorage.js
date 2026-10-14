@@ -116,6 +116,9 @@ async function getMedia(messageId) {
       return { client, media: msg.media, size: Number(msg.media.document.size), msg };
     } catch (err) {
       console.warn(`[Telegram MTProto] getMedia notice for msg ${messageId} (attempt ${attempt}/2):`, err.message);
+      if (err.message && (err.message.includes('AUTH_KEY_DUPLICATED') || err.message.includes('406'))) {
+        try { if (fs.existsSync(SESSION_FILE)) fs.unlinkSync(SESSION_FILE); } catch(e){}
+      }
       if (attempt === 1) {
         clientPromise = null;
         peerCache = null;
