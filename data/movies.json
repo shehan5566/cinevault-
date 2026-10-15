@@ -251,7 +251,7 @@
       "Drama"
     ],
     "duration": "3h 21m",
-    "quality": "1080p WEB-DL",
+    "quality": "",
     "fileSize": "2.8 GB",
     "language": "Hindi",
     "personalRating": 8.5,
@@ -259,14 +259,15 @@
     "isFavorite": true,
     "inWatchlist": false,
     "addedDate": "2026-10-14T05:58:17.737Z",
-    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNGViM2M4NmUtMmNkNy00MTQ5LTk5MDYtNmNhODAzODkwOTJlXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "posterUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUZjh3CX5bCZNVdhxnyRDmi4loox_5lqwkooAVDyFTzpl-8CMSCL1-KqpiFXCmX_vYSIqa2gBGHHwnAd_ODDW1b78A8TVKAWv2v0R9TwY&s=10",
     "backdropUrl": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1600&auto=format&fit=crop",
     "notes": "A father-son relationship carved in blood and vengeance. Ranvijay goes on a relentless rampage after an assassination attempt on his father.",
     "videoUrl": "/api/telegram/file/40",
     "telegramMsgId": 40,
     "imdbId": "tt13751694",
     "subtitleUrl": "/uploads/subtitles/animal-2023.vtt",
-    "progressSeconds": 431
+    "progressSeconds": 431,
+    "imdbRating": 7
   },
   {
     "id": "mov-1791884583553",
