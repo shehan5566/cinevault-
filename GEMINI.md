@@ -51,16 +51,18 @@
 - **Zero Local Disk Space:** Never store video files permanently on local PC or Render ephemeral disk. Always delete temporary upload videos immediately after Telegram MTProto upload completes.
 - **Immutable State Protection:** No agent or automated process may rewrite, delete, or roll back these core features without explicit, unambiguous user confirmation.
 
-## 9. PERMANENT 8 MOVIES INVENTORY (ZERO DATA LOSS)
-The library baseline currently contains strictly exactly 8 movies, each with strictly exactly 10 cast members with 100% studio portraits and instant Telegram Cloud playback:
-1. `Anjaam Pathiraa (2020)` (telegramMsgId: 42, 10 cast with studio photos)
-2. `Aranmanai 4 (2024)` (telegramMsgId: 44, 10 cast with studio photos)
-3. `Animal (2023)` (telegramMsgId: 40, 10 cast with studio photos)
-4. `Amaran (2024)` (telegramMsgId: 37, 10 cast with studio photos)
-5. `Akhanda 2 - Thaandavam (2025)` (telegramMsgId: 38, 10 cast with studio photos)
-6. `Abraham Ozler (2024)` (telegramMsgId: 32, 10 cast with studio photos)
-7. `Aavesham (2024)` (telegramMsgId: 27, 10 cast with studio photos)
-8. `A.R.M (2024)` (telegramMsgId: 30, 10 cast with studio photos)
-- Under no circumstances may any automated sync or script drop or overwrite any of these 8 movies.
+## 9. PERMANENT 10 MOVIES INVENTORY (ZERO DATA LOSS)
+The library baseline currently contains strictly exactly 10 movies, each with strictly exactly 10 cast members with 100% studio portraits and instant Telegram Cloud playback:
+1. `Bagheera (2024)` (telegramMsgId: 51, 10 cast with studio photos)
+2. `Atharva (2023)` (telegramMsgId: 49, 10 cast with studio photos)
+3. `Anjaam Pathiraa (2020)` (telegramMsgId: 42, 10 cast with studio photos)
+4. `Aranmanai 4 (2024)` (telegramMsgId: 44, 10 cast with studio photos)
+5. `Animal (2023)` (telegramMsgId: 40, 10 cast with studio photos)
+6. `Amaran (2024)` (telegramMsgId: 37, 10 cast with studio photos)
+7. `Akhanda 2 - Thaandavam (2025)` (telegramMsgId: 38, 10 cast with studio photos)
+8. `Abraham Ozler (2024)` (telegramMsgId: 32, 10 cast with studio photos)
+9. `Aavesham (2024)` (telegramMsgId: 27, 10 cast with studio photos)
+10. `A.R.M (2024)` (telegramMsgId: 30, 10 cast with studio photos)
+- Under no circumstances may any automated sync or script drop or overwrite any of these 10 movies.
 
 
