@@ -556,9 +556,12 @@ app.post('/api/movies', upload.fields([
       if (fs.existsSync(subFilePath)) {
         try {
           const ffmpegPath = require('ffmpeg-static');
+          const { exec } = require('child_process');
+          const util = require('util');
+          const execAsync = util.promisify(exec);
           const muxedPath = localVideoPath + '.muxed.mkv';
           console.log(`[CineVault Subtitle Embed] Embedding subtitle into video container: ${subFilePath}`);
-          execSync(`"${ffmpegPath}" -y -i "${localVideoPath}" -i "${subFilePath}" -map 0 -map 1:0 -c copy -c:s srt -metadata:s:s:0 language=sin -metadata:s:s:0 title="Sinhala Subtitle" "${muxedPath}"`, { stdio: 'pipe' });
+          await execAsync(`"${ffmpegPath}" -y -i "${localVideoPath}" -i "${subFilePath}" -map 0 -map 1:0 -c copy -c:s srt -metadata:s:s:0 language=sin -metadata:s:s:0 title="Sinhala Subtitle" "${muxedPath}"`);
           if (fs.existsSync(muxedPath) && fs.statSync(muxedPath).size > 1000) {
             fs.unlinkSync(localVideoPath);
             fs.renameSync(muxedPath, localVideoPath);
