@@ -232,6 +232,8 @@ function setupPlyrWithHls(srcUrl) {
       plyrInstance = new Plyr(video, {
         controls: ['play-large', 'play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
         settings: ['captions', 'quality', 'speed'],
+        seekTime: 10,
+        keyboard: { focused: false, global: false },
         quality: {
           default: availableQualities[0] || 1080,
           options: availableQualities,
@@ -255,7 +257,7 @@ function setupPlyrWithHls(srcUrl) {
         settings: ['captions', 'quality', 'speed'],
         captions: { active: true, language: 'auto', update: true },
         seekTime: 10,
-        keyboard: { focused: true, global: true },
+        keyboard: { focused: false, global: false },
         quality: {
           default: 1080,
           options: [2160, 1080, 720, 480],
