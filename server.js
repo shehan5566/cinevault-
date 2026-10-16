@@ -303,7 +303,7 @@ app.get('/api/movies', (req, res) => {
     if (m.videoUrl && m.videoUrl.startsWith('/uploads/')) {
       const fullPath = path.join(__dirname, m.videoUrl);
       if (!fs.existsSync(fullPath)) {
-        return { ...m, videoUrl: '' };
+        return { ...m, videoUrl: '', isSyncingToCloud: true };
       }
     }
     return m;
@@ -354,6 +354,13 @@ app.get('/api/movies/:id', (req, res) => {
   const movies = getMovies();
   const movie = movies.find(m => m.id === req.params.id);
   if (!movie) return res.status(404).json({ error: 'Movie not found' });
+  if (movie.videoUrl && movie.videoUrl.startsWith('/uploads/')) {
+    const fullPath = path.join(__dirname, movie.videoUrl);
+    if (!fs.existsSync(fullPath)) {
+      movie.videoUrl = '';
+      movie.isSyncingToCloud = true;
+    }
+  }
   res.json(movie);
 });
 
