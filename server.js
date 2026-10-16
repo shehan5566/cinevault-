@@ -300,6 +300,125 @@ async function postMovieToTelegram(movie, downloadUrl = null) {
   }
 }
 
+// --- STRICT SEQUENTIAL TELEGRAM CLOUD DISPATCHER (RULE 5) ---
+// Guarantees strictly ordered pairs: [Poster Photo] followed immediately by [Video File]
+let telegramQueueChain = Promise.resolve();
+
+function enqueueTelegramMovieUpload(movie, localVideoPath, finalSubtitleUrl, uploadId) {
+  telegramQueueChain = telegramQueueChain.then(async () => {
+    try {
+      console.log(`\n====================================================`);
+      console.log(`🎬 [Sequential TG Queue] Processing: ${movie.title}`);
+      console.log(`====================================================`);
+
+      if (uploadId) tgUploadProgress[uploadId] = { pct: 0, stage: 'processing' };
+
+      // 1. Subtitle Muxing (Embed Sinhala Subtitle into MKV container)
+      if (finalSubtitleUrl && finalSubtitleUrl.startsWith('/uploads/subtitles/')) {
+        const subFilePath = path.join(__dirname, finalSubtitleUrl);
+        if (fs.existsSync(subFilePath) && fs.existsSync(localVideoPath)) {
+          try {
+            const ffmpegPath = require('ffmpeg-static');
+            const { exec } = require('child_process');
+            const util = require('util');
+            const execAsync = util.promisify(exec);
+            const muxedPath = localVideoPath + '.muxed.mkv';
+            console.log(`[CineVault Subtitle Embed] Embedding subtitle into video container: ${subFilePath}`);
+            await execAsync(`"${ffmpegPath}" -y -i "${localVideoPath}" -i "${subFilePath}" -map 0 -map 1:0 -c copy -c:s srt -metadata:s:s:0 language=sin -metadata:s:s:0 title="Sinhala Subtitle" "${muxedPath}"`);
+            if (fs.existsSync(muxedPath) && fs.statSync(muxedPath).size > 1000) {
+              fs.unlinkSync(localVideoPath);
+              fs.renameSync(muxedPath, localVideoPath);
+              console.log(`[CineVault Subtitle Embed] Successfully embedded Sinhala subtitle track inside movie video!`);
+            }
+          } catch (muxErr) {
+            console.error('[CineVault Subtitle Embed] Error during muxing:', muxErr.message);
+          }
+        }
+      }
+
+      // 2. Send 4K Poster Photo FIRST (Step 1 of Rule 5)
+      console.log(`📸 1. Posting Movie Poster to Telegram Channel...`);
+      let telegramPhotoMsgId = null;
+      try {
+        telegramPhotoMsgId = await postMovieToTelegram(movie);
+        console.log(`   ✅ Poster posted (Msg ID: ${telegramPhotoMsgId})`);
+      } catch (err) {
+        console.error('Failed to post movie poster to Telegram:', err.message);
+      }
+
+      // 3. Send Video Document IMMEDIATELY below the poster (Step 2 of Rule 5)
+      if (localVideoPath && fs.existsSync(localVideoPath)) {
+        if (!tgStorage.isConfigured()) {
+          console.error('[Telegram] TELEGRAM_API_ID/TELEGRAM_API_HASH missing in .env - video kept locally until configured.');
+          return;
+        }
+
+        const ext = path.extname(localVideoPath) || '.mkv';
+        const cleanFileName = `${movie.title.replace(/[<>:"/\\|?*]/g, '')}${ext}`;
+        const caption = `🎬 ${movie.title}${movie.year && !String(movie.title).includes(String(movie.year)) ? ` (${movie.year})` : ''}`;
+
+        console.log(`🚀 2. Uploading Video Document directly below poster...`);
+        const up = await tgStorage.uploadFile(localVideoPath, cleanFileName, caption, (p) => {
+          if (uploadId) tgUploadProgress[uploadId] = { pct: Math.round(p * 100), stage: 'telegram' };
+        });
+
+        if (uploadId) tgUploadProgress[uploadId] = { pct: 100, stage: 'done' };
+        if (uploadId) setTimeout(() => delete tgUploadProgress[uploadId], 60000);
+
+        if (up && up.messageId) {
+          const rawChatId = String(TELEGRAM_CHAT_ID).replace(/^-100/, '').replace(/^-/, '');
+          const downloadLink = `https://t.me/c/${rawChatId}/${up.messageId}`;
+          console.log(`   ✅ Video Document uploaded (Msg ID: ${up.messageId})`);
+
+          // 4. Update Poster Caption with Download Link and Interactive Button
+          if (telegramPhotoMsgId) {
+            try {
+              console.log(`🔘 3. Attaching interactive [📥 Download / Watch Video] button to poster...`);
+              const updatedCaption = buildMovieCaption(movie, downloadLink);
+              await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/editMessageCaption`, {
+                chat_id: TELEGRAM_CHAT_ID,
+                message_id: telegramPhotoMsgId,
+                caption: updatedCaption,
+                parse_mode: 'HTML',
+                reply_markup: {
+                  inline_keyboard: [[{ text: '📥 Download / Watch Video', url: downloadLink }]]
+                }
+              });
+              console.log(`   ✅ Interactive button attached successfully.`);
+            } catch (editErr) {
+              console.warn('Poster caption update notice:', editErr.message);
+            }
+          }
+
+          // 5. Update data/movies.json
+          const currentMovies = getMovies();
+          const target = currentMovies.find(m => m.id === movie.id);
+          if (target) {
+            target.telegramMsgId = up.messageId;
+            target.videoUrl = `/api/telegram/file/${up.messageId}`;
+            saveMovies(currentMovies);
+          }
+          movie.telegramMsgId = up.messageId;
+          movie.videoUrl = `/api/telegram/file/${up.messageId}`;
+
+          // 6. Delete local temp video (Rule 3: Zero Local Disk Space)
+          try {
+            if (fs.existsSync(localVideoPath)) {
+              fs.unlinkSync(localVideoPath);
+              console.log('[CineVault Storage] Local video deleted. PC disk used: 0 MB.');
+            }
+          } catch (err) {
+            console.error('Error deleting local temp video:', err.message);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('[Sequential TG Queue] Unexpected error processing movie:', err.message);
+    }
+  });
+  return telegramQueueChain;
+}
+
 // --- API ENDPOINTS ---
 
 // Get all movies
@@ -550,95 +669,21 @@ app.post('/api/movies', upload.fields([
     addedDate: new Date().toISOString()
   };
 
-  // Save movie to database immediately so it is never lost even if Telegram upload is interrupted
+  // Save movie to database immediately so it is never lost even if Telegram upload is interrupted (Rule 4)
   movies.unshift(newMovie);
   saveMovies(movies);
 
-  let telegramPhotoMsgId = null;
-  try {
-    telegramPhotoMsgId = await postMovieToTelegram(newMovie);
-  } catch (err) {
-    console.error('Failed to post movie poster to Telegram:', err);
-  }
+  const uploadId = req.body.uploadId;
+  const videoFile = req.files && req.files.video && req.files.video[0] ? req.files.video[0] : null;
+  const localVideoPath = videoFile ? videoFile.path : null;
 
-  if (req.files && req.files.video && req.files.video[0]) {
-    const videoFile = req.files.video[0];
-    let localVideoPath = videoFile.path;
+  if (uploadId) tgUploadProgress[uploadId] = { pct: 0, stage: 'queued' };
 
-    // Embed uploaded subtitle directly inside the video container (single-file download with embedded subtitles)
-    if (finalSubtitleUrl && finalSubtitleUrl.startsWith('/uploads/subtitles/')) {
-      const subFilePath = path.join(__dirname, finalSubtitleUrl);
-      if (fs.existsSync(subFilePath)) {
-        try {
-          const ffmpegPath = require('ffmpeg-static');
-          const { exec } = require('child_process');
-          const util = require('util');
-          const execAsync = util.promisify(exec);
-          const muxedPath = localVideoPath + '.muxed.mkv';
-          console.log(`[CineVault Subtitle Embed] Embedding subtitle into video container: ${subFilePath}`);
-          await execAsync(`"${ffmpegPath}" -y -i "${localVideoPath}" -i "${subFilePath}" -map 0 -map 1:0 -c copy -c:s srt -metadata:s:s:0 language=sin -metadata:s:s:0 title="Sinhala Subtitle" "${muxedPath}"`);
-          if (fs.existsSync(muxedPath) && fs.statSync(muxedPath).size > 1000) {
-            fs.unlinkSync(localVideoPath);
-            fs.renameSync(muxedPath, localVideoPath);
-            console.log(`[CineVault Subtitle Embed] Successfully embedded Sinhala subtitle track inside movie video!`);
-          }
-        } catch (muxErr) {
-          console.error('[CineVault Subtitle Embed] Error during muxing:', muxErr.message);
-        }
-      }
-    }
-
-    const origBase = videoFile.originalname ? videoFile.originalname.replace(/\.[^/.]+$/, '') : newMovie.title;
-    const label = `${origBase}.mkv`;
-    const caption = `🎬 ${newMovie.title}${newMovie.year && !String(newMovie.title).includes(String(newMovie.year)) ? ` (${newMovie.year})` : ''}`;
-    const uploadId = req.body.uploadId;
-    if (!tgStorage.isConfigured()) {
-      console.error('[Telegram] TELEGRAM_API_ID/TELEGRAM_API_HASH missing in .env - video kept locally until configured.');
-    } else {
-      try {
-        const up = await tgStorage.uploadFile(localVideoPath, label, caption, (p) => {
-          if (uploadId) tgUploadProgress[uploadId] = { pct: Math.round(p * 100), stage: 'telegram' };
-        });
-        if (uploadId) tgUploadProgress[uploadId] = { pct: 100, stage: 'done' };
-        if (uploadId) setTimeout(() => delete tgUploadProgress[uploadId], 60000);
-        if (up) {
-          const rawChatId = String(TELEGRAM_CHAT_ID).replace(/^-100/, '').replace(/^-/, '');
-          const downloadLink = `https://t.me/c/${rawChatId}/${up.messageId}`;
-          const directDownloadLink = `${req.protocol}://${req.get('host')}/api/download/${newMovie.id}`;
-          if (telegramPhotoMsgId) {
-            try {
-              const updatedCaption = buildMovieCaption(newMovie, downloadLink);
-              await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/editMessageCaption`, {
-                chat_id: TELEGRAM_CHAT_ID,
-                message_id: telegramPhotoMsgId,
-                caption: updatedCaption,
-                parse_mode: 'HTML',
-                reply_markup: {
-                  inline_keyboard: [[{ text: '📥 Download / Watch Video', url: downloadLink }]]
-                }
-              });
-            } catch (editErr) {}
-          }
-          const currentMovies = getMovies();
-          const target = currentMovies.find(m => m.id === newMovie.id);
-          if (target) {
-            target.telegramMsgId = up.messageId;
-            target.videoUrl = `/api/telegram/file/${up.messageId}`;
-            saveMovies(currentMovies);
-          }
-          newMovie.telegramMsgId = up.messageId;
-          newMovie.videoUrl = `/api/telegram/file/${up.messageId}`;
-          try {
-            fs.unlinkSync(localVideoPath);
-            console.log('[CineVault Storage] Local video deleted. PC disk used: 0 MB.');
-          } catch (err) {
-            console.error('Error deleting local temp video:', err.message);
-          }
-        }
-      } catch (err) {
-        console.error('Error uploading video to Telegram:', err);
-      }
-    }
+  if (localVideoPath) {
+    enqueueTelegramMovieUpload(newMovie, localVideoPath, finalSubtitleUrl, uploadId);
+  } else {
+    // Metadata-only movie: post poster with waiting caption
+    postMovieToTelegram(newMovie).catch(e => console.error(e.message));
   }
 
   res.status(201).json(newMovie);

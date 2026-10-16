@@ -11,7 +11,7 @@ const API_HASH = process.env.TELEGRAM_API_HASH || '304b219a9e2cd12e50d14d74bcef1
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8538231781:AAFJ27AnEuZK22-TnUM15wRgYWdU2Zvihz0';
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003955449040';
 const IS_RENDER = !!process.env.RENDER;
-const SESSION_FILE = path.join(__dirname, 'data', IS_RENDER ? 'tg_session_render.txt' : 'tg_session_local.txt');
+const SESSION_FILE = path.join(__dirname, 'data', IS_RENDER ? 'tg_session_render.txt' : (process.env.TG_SESSION_FILE || 'tg_session_local.txt'));
 
 let clientPromise = null;
 
