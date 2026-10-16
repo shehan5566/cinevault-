@@ -196,4 +196,4 @@ async function streamToResponse(messageId, req, res, { download = false, filenam
   res.end();
 }
 
-module.exports = { isConfigured, getClient, uploadFile, streamToResponse };
+module.exports = { isConfigured, getClient, getPeer, uploadFile, streamToResponse, CHAT_ID };
