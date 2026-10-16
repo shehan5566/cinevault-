@@ -81,7 +81,7 @@
   "Bill Paxton": "https://media.themoviedb.org/t/p/w600_and_h900_bestv2/vbrgcMsy7m7Pc0O0glRZugfZgoK.jpg",
   "madhur mittal": "https://images.filmibeat.com/ph-big/2023/09/madhur-mittal_169390760410.jpg",
   "Madhur Mittal": "https://images.filmibeat.com/ph-big/2023/09/madhur-mittal_169390760410.jpg",
-  "Tovino Thomas": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Tovino_Thomas_At_The_%E2%80%98Maari_2%E2%80%99_Press_Meet.jpg/330px-Tovino_Thomas_At_The_%E2%80%98Maari_2%E2%80%99_Press_Meet.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "Tovino Thomas": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Tovino_Thomas_At_The_%E2%80%98Maari_2%E2%80%99_Press_Meet.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "tovino thomas": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Tovino_Thomas_At_The_%E2%80%98Maari_2%E2%80%99_Press_Meet.jpg/330px-Tovino_Thomas_At_The_%E2%80%98Maari_2%E2%80%99_Press_Meet.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "Basil Joseph": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Basil_Joseph_2023s_%28cropped%29.jpg/330px-Basil_Joseph_2023s_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "basil joseph": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Basil_Joseph_2023s_%28cropped%29.jpg/330px-Basil_Joseph_2023s_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
@@ -420,5 +420,13 @@
   "Suriya": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Retro_audio_launch_-_Suriya.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "Gulshan Devaiah": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Gulshan_Devaiya_at_Chandon%27s_party_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "Bala Rajwadi": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Bala_Rajwadi%2C_a_candid_portrait_at_shooting_location..jpg/960px-Bala_Rajwadi%2C_a_candid_portrait_at_shooting_location..jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-  "Robert Downey Jr.": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/RobertDowneyJr-byPhilipRomano7_%28cropped%29.jpg/960px-RobertDowneyJr-byPhilipRomano7_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  "Robert Downey Jr.": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/RobertDowneyJr-byPhilipRomano7_%28cropped%29.jpg/960px-RobertDowneyJr-byPhilipRomano7_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "Mohanlal": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Kerala_School_Kalolsavam_2026_day_5_Mohanlal_%28277%29_%28cropped%29.jpg/960px-Kerala_School_Kalolsavam_2026_day_5_Mohanlal_%28277%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "Prithviraj Sukumaran": "https://upload.wikimedia.org/wikipedia/commons/4/48/Prithviraj_at_Aiyyaa_event.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "Manju Warrier": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Manju_Warrier_2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "Indrajith Sukumaran": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Indrajithactor.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "Abhimanyu Singh": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Abhimanyu_Singh_%28Indian_Actor%29_rgvzoomin.jpg/960px-Abhimanyu_Singh_%28Indian_Actor%29_rgvzoomin.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "Jerome Flynn": "https://upload.wikimedia.org/wikipedia/commons/0/02/Jerome_Flynn_2013_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "Eriq Ebouaney": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Eriq_Ebouaney_2012.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "Suraj Venjaramoodu": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Photo_of_Suraj_captured_by_Ujwal_Rajeev.jpg/960px-Photo_of_Suraj_captured_by_Ujwal_Rajeev.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
 }
