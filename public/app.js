@@ -137,7 +137,12 @@ async function fetchMovies() {
     moviesData = await response.json();
 
     if (activeTab === 'tamil') {
-      moviesData = moviesData.filter(m => (m.language && m.language.toLowerCase() === 'tamil') || (m.genre && m.genre.includes('Tamil')));
+      moviesData = moviesData.filter(m => {
+        const lang = (m.language || '').toLowerCase();
+        const genreStr = Array.isArray(m.genre) ? m.genre.join(' ') : (m.genre || '');
+        return lang === 'tamil' || lang === 'telugu' || lang === 'malayalam' || lang === 'kannada' ||
+               genreStr.includes('Tamil') || genreStr.includes('Telugu') || genreStr.includes('Malayalam') || genreStr.includes('Kannada');
+      });
     } else if (activeTab === 'hindi') {
       moviesData = moviesData.filter(m => (m.language && m.language.toLowerCase() === 'hindi') || (m.genre && m.genre.includes('Hindi')));
     } else if (activeTab === 'english') {
