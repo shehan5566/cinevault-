@@ -1,5 +1,43 @@
 [
   {
+    "id": "mov-1792123365355",
+    "title": "Chhaava (2025)",
+    "sinhalaTitle": "Chhaava (2025) (Subtitled)",
+    "year": 2025,
+    "quality": "WEB-DL",
+    "language": "Hindi",
+    "type": "movie",
+    "imdbId": "tt27922706",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Drama",
+      "History"
+    ],
+    "director": "Laxman Utekar",
+    "cast": [
+      "Vicky Kaushal",
+      "Akshaye Khanna",
+      "Rashmika Mandanna"
+    ],
+    "imdbRating": 7.3,
+    "personalRating": 7.3,
+    "notes": "",
+    "duration": "161 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjdhZjhhMmUtNDFmNi00NDQwLWJmMGYtNmNhNzAyODMzNDE4XkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792123144953-159725990.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792123362873-272021782.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-16T04:02:45.355Z"
+  },
+  {
     "id": "mov-1792121696479",
     "title": "Chatrapathi (2024)",
     "sinhalaTitle": "Chatrapathi (2024) (Subtitled)",
