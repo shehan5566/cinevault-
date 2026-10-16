@@ -494,6 +494,8 @@ window.openPlayerModal = openPlayerModal;
             } catch (e) {}
           }
         }, 500);
+      } else if (movie.isSyncingToCloud || (movie.videoUrl && !movie.telegramMsgId)) {
+        alert('⏳ මෙම චිත්‍රපටයේ වීඩියෝව Telegram Cloud Storage වෙත Upload වෙමින් (Sync වෙමින්) පවතී. Cloud Upload අවසන් වූ පසු Live වෙබ් අඩවියේ මෙය නැරඹිය හැක. කරුණාකර සුළු මොහොතකින් නැවත උත්සාහ කරන්න.');
       } else {
         alert('⚠️ මෙම චිත්‍රපටය සඳහා වීඩියෝ ගොනුවක් තවමත් Upload කර නොමැත. කරුණාකර වීඩියෝව Upload කරන්න.');
       }
