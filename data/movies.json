@@ -1,5 +1,43 @@
 [
   {
+    "id": "mov-1792148593582",
+    "title": "Kanguva (2024)",
+    "sinhalaTitle": "Kanguva (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt22036406",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ],
+    "director": "Siva",
+    "cast": [
+      "Suriya",
+      "Disha Patani",
+      "Bobby Deol"
+    ],
+    "imdbRating": 4.5,
+    "personalRating": 4.5,
+    "notes": "",
+    "duration": "152 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjE2OGYyMTctY2ZkYy00ZWMzLWIzNjEtMWIzNjkxZTMyM2QwXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792148380906-348066249.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792148590908-657751174.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-16T11:03:13.582Z"
+  },
+  {
     "id": "mov-1792148287143",
     "title": "Kaantha (2025)",
     "sinhalaTitle": "Kaantha (2025) (Subtitled)",
