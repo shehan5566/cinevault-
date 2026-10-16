@@ -1,5 +1,48 @@
 [
   {
+    "id": "mov-1792119980574",
+    "title": "Bhairathi Ranagal (2024)",
+    "sinhalaTitle": "Bhairathi Ranagal (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "English",
+    "type": "movie",
+    "imdbId": null,
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Drama"
+    ],
+    "director": "Narthan",
+    "cast": [
+      "Shiva Rajkumar",
+      "Rahul Bose",
+      "Rukmini Vasanth",
+      "Avinash",
+      "Chaya Singh",
+      "Sriimurali",
+      "Devaraj",
+      "Shabeer Kallarakkal",
+      "Gopalkrishna Deshpande",
+      "Madhu Guruswamy"
+    ],
+    "imdbRating": 8,
+    "personalRating": 8,
+    "notes": "",
+    "duration": "150 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTY4MzBkODMtMDJkMC00N2ExLWEwYzktNmU2OWJlYTg3ZDViXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792119844049-989921467.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792119980491-383578722.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-16T03:06:20.574Z"
+  },
+  {
     "id": "mov-1792119622106",
     "title": "Bhagwat Chapter One: Raakshas (2025)",
     "sinhalaTitle": "Bhagwat Chapter One: Raakshas (2025) (Subtitled)",
