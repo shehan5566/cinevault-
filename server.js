@@ -1,4 +1,12 @@
 require('dotenv').config();
+
+process.on('uncaughtException', (err) => {
+  console.error('💥 [Uncaught Exception]:', err.message || err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('💥 [Unhandled Rejection]:', reason?.message || reason);
+});
+
 const express = require('express');
 const tgStorage = require('./tgstorage');
 const { resolveStrict10CastWithPhotos } = require('./auto_cast_enricher');
