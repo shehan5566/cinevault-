@@ -1,5 +1,48 @@
 [
   {
+    "id": "mov-1792121078812",
+    "title": "Brother (2024)",
+    "sinhalaTitle": "Brother (2024) (Subtitled)",
+    "year": 2026,
+    "quality": "WEB-DL",
+    "language": "English",
+    "type": "movie",
+    "imdbId": null,
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Comedy"
+    ],
+    "director": "Matt Spicer",
+    "cast": [
+      "Ravi Mohan",
+      "Priyanka Arulmohan",
+      "Bhoomika Chawla",
+      "Saranya Ponvannan",
+      "Rao Ramesh",
+      "M.S. Bhaskar",
+      "Achyuth Kumar",
+      "Seetha",
+      "Vridhi Vishal",
+      "Natarajan Subramaniam"
+    ],
+    "imdbRating": 5.5,
+    "personalRating": 5.5,
+    "notes": "",
+    "duration": "140 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDE2ZTIyYjctNzZlZi00YmVhLWE1ZTEtMGIxODA0ZThlZThjXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792120993195-552916244.mp4",
+    "subtitleUrl": "",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-16T03:24:38.812Z"
+  },
+  {
     "id": "mov-1792120581490",
     "title": "Bougainvillea (2024)",
     "sinhalaTitle": "Bougainvillea (2024) (Subtitled)",
