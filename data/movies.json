@@ -1,5 +1,48 @@
 [
   {
+    "id": "mov-1792120283638",
+    "title": "Bhimaa (2024)",
+    "sinhalaTitle": "Bhimaa (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": null,
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action"
+    ],
+    "director": "Harsha",
+    "cast": [
+      "Priya Bhavani Shankar",
+      "Malvika Sharma",
+      "Poorna",
+      "Vennela Kishore",
+      "Mukesh Tiwari",
+      "Subhalekha Sudhakar",
+      "Raghu Babu",
+      "Sapthagiri",
+      "Kamal Kamaraju",
+      "Gopichand"
+    ],
+    "imdbRating": 5.1,
+    "personalRating": 5.1,
+    "notes": "",
+    "duration": "141 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZmFlZjgzMmYtZjAxZC00Yzg4LWI3NzYtYTI0ZTBjMTk0ZjRhXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792120187039-147537319.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792120283553-792342442.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-16T03:11:23.638Z"
+  },
+  {
     "id": "mov-1792119980574",
     "title": "Bhairathi Ranagal (2024)",
     "sinhalaTitle": "Bhairathi Ranagal (2024) (Subtitled)",
