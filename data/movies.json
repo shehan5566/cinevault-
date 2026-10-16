@@ -1,5 +1,46 @@
 [
   {
+    "id": "mov-1792130392319",
+    "title": "Devara Part 1 (2024)",
+    "sinhalaTitle": "Devara Part 1 (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt11821912",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
+    "director": "Koratala Siva",
+    "cast": [
+      "N. T. Rama Rao Jr.",
+      "Saif Ali Khan",
+      "Devara",
+      "Pratyush",
+      "N.T. Rama Rao Jr.",
+      "Janhvi Kapoor"
+    ],
+    "imdbRating": 6,
+    "personalRating": 6,
+    "notes": "",
+    "duration": "176 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BYmI5NTljYWItMDhjMC00NDQwLWFhMjQtNWNjNDYzYzkwNGQ0XkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792130236112-486690988.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792130389457-322411884.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-16T05:59:52.319Z"
+  },
+  {
     "id": "mov-1792124806451",
     "title": "Deva (2025)",
     "sinhalaTitle": "Deva (2025) (Subtitled)",
