@@ -1,5 +1,43 @@
 [
   {
+    "id": "mov-1792124806451",
+    "title": "Deva (2025)",
+    "sinhalaTitle": "Deva (2025) (Subtitled)",
+    "year": 2025,
+    "quality": "WEB-DL",
+    "language": "Hindi",
+    "type": "movie",
+    "imdbId": "tt27852049",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
+    "director": "Rosshan Andrrews",
+    "cast": [
+      "Shahid Kapoor",
+      "Chandan Anand",
+      "Kubbra Sait"
+    ],
+    "imdbRating": 6.6,
+    "personalRating": 6.6,
+    "notes": "",
+    "duration": "156 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTllOTk2MDgtZmZmYy00MDBhLThiMzctNzhmNTk5ODdkZTcwXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792124668771-781062346.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792124804331-195789686.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-16T04:26:46.452Z"
+  },
+  {
     "id": "mov-1792124014241",
     "title": "Daaku Maharaaj (2025)",
     "sinhalaTitle": "Daaku Maharaaj (2025) (Subtitled)",
