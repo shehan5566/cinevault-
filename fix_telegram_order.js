@@ -213,7 +213,20 @@ const OLD_MESSAGES_TO_DELETE = [92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 1
     // Step D: Update data/movies.json
     movie.telegramMsgId = newVideoMsgId;
     movie.videoUrl = `/api/telegram/file/${newVideoMsgId}`;
-    fs.writeFileSync(DATA_FILE, JSON.stringify(allMovies, null, 2), 'utf8');
+    try {
+      const freshMovies = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+      const target = freshMovies.find(m => m.id === movie.id || (m.title && item.titleMatch && m.title.includes(item.titleMatch)));
+      if (target) {
+        target.telegramMsgId = newVideoMsgId;
+        target.videoUrl = `/api/telegram/file/${newVideoMsgId}`;
+        fs.writeFileSync(DATA_FILE, JSON.stringify(freshMovies, null, 2), 'utf8');
+      } else {
+        freshMovies.unshift(movie);
+        fs.writeFileSync(DATA_FILE, JSON.stringify(freshMovies, null, 2), 'utf8');
+      }
+    } catch (e) {
+      fs.writeFileSync(DATA_FILE, JSON.stringify(allMovies, null, 2), 'utf8');
+    }
     console.log(`💾 4. Updated database: telegramMsgId = ${newVideoMsgId}`);
 
     // Small delay between movies to avoid Telegram FloodWait
