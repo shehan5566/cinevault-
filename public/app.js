@@ -232,8 +232,6 @@ function setupPlyrWithHls(srcUrl) {
       plyrInstance = new Plyr(video, {
         controls: ['play-large', 'play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
         settings: ['captions', 'quality', 'speed'],
-        seekTime: 10,
-        keyboard: { focused: false, global: false },
         quality: {
           default: availableQualities[0] || 1080,
           options: availableQualities,
@@ -257,7 +255,7 @@ function setupPlyrWithHls(srcUrl) {
         settings: ['captions', 'quality', 'speed'],
         captions: { active: true, language: 'auto', update: true },
         seekTime: 10,
-        keyboard: { focused: false, global: false },
+        keyboard: { focused: true, global: true },
         quality: {
           default: 1080,
           options: [2160, 1080, 720, 480],
@@ -343,7 +341,7 @@ function setPlayerSubtitle(subtitleUrl) {
   }
 }
 
-// KEYBOARD ARROW SHORTCUTS FOR PLYR HD (STRICTLY EXACT +10s / -10s / SPACEBAR TOGGLE / VOLUME)
+// KEYBOARD ARROW SHORTCUTS FOR PLYR HD (ARROW RIGHT +10s / ARROW LEFT -10s / SPACEBAR TOGGLE)
 window.addEventListener('keydown', (e) => {
   const playerModal = document.getElementById('playerModal');
   if (!playerModal || !playerModal.classList.contains('active')) return;
@@ -355,72 +353,20 @@ window.addEventListener('keydown', (e) => {
 
   if (e.key === 'ArrowRight') {
     e.preventDefault();
-    e.stopImmediatePropagation();
-    const cur = (plyrInstance ? plyrInstance.currentTime : video.currentTime) || 0;
-    const dur = (plyrInstance ? plyrInstance.duration : video.duration) || Infinity;
-    const target = Math.min(dur, cur + 10);
-    if (plyrInstance) {
-      plyrInstance.currentTime = target;
-    } else {
-      video.currentTime = target;
-    }
+    video.currentTime = Math.min(video.duration || Infinity, video.currentTime + 10);
     showSeekBadge('right', '<i class="fa-solid fa-rotate-right"></i> +10s');
   } else if (e.key === 'ArrowLeft') {
     e.preventDefault();
-    e.stopImmediatePropagation();
-    const cur = (plyrInstance ? plyrInstance.currentTime : video.currentTime) || 0;
-    const target = Math.max(0, cur - 10);
-    if (plyrInstance) {
-      plyrInstance.currentTime = target;
-    } else {
-      video.currentTime = target;
-    }
+    video.currentTime = Math.max(0, video.currentTime - 10);
     showSeekBadge('left', '<i class="fa-solid fa-rotate-left"></i> -10s');
-  } else if (e.key === ' ' || e.key.toLowerCase() === 'k') {
+  } else if (e.key === ' ') {
     e.preventDefault();
-    e.stopImmediatePropagation();
-    const isPaused = plyrInstance ? plyrInstance.paused : video.paused;
-    if (isPaused) {
-      if (plyrInstance) plyrInstance.play();
-      else video.play();
+    if (video.paused) {
+      video.play();
       showSeekBadge('center', '<i class="fa-solid fa-play"></i> Play');
     } else {
-      if (plyrInstance) plyrInstance.pause();
-      else video.pause();
+      video.pause();
       showSeekBadge('center', '<i class="fa-solid fa-pause"></i> Pause');
-    }
-  } else if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    if (plyrInstance) {
-      plyrInstance.volume = Math.min(1, Math.round(((plyrInstance.volume || 1) + 0.1) * 10) / 10);
-      showSeekBadge('center', `<i class="fa-solid fa-volume-high"></i> ${Math.round(plyrInstance.volume * 100)}%`);
-    } else {
-      video.volume = Math.min(1, Math.round((video.volume + 0.1) * 10) / 10);
-      showSeekBadge('center', `<i class="fa-solid fa-volume-high"></i> ${Math.round(video.volume * 100)}%`);
-    }
-  } else if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    if (plyrInstance) {
-      plyrInstance.volume = Math.max(0, Math.round(((plyrInstance.volume || 1) - 0.1) * 10) / 10);
-      showSeekBadge('center', `<i class="fa-solid fa-volume-low"></i> ${Math.round(plyrInstance.volume * 100)}%`);
-    } else {
-      video.volume = Math.max(0, Math.round((video.volume - 0.1) * 10) / 10);
-      showSeekBadge('center', `<i class="fa-solid fa-volume-low"></i> ${Math.round(video.volume * 100)}%`);
-    }
-  } else if (e.key.toLowerCase() === 'm') {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    if (plyrInstance) {
-      plyrInstance.muted = !plyrInstance.muted;
-      showSeekBadge('center', plyrInstance.muted ? '<i class="fa-solid fa-volume-xmark"></i> Muted' : '<i class="fa-solid fa-volume-high"></i> Unmuted');
-    }
-  } else if (e.key.toLowerCase() === 'f') {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    if (plyrInstance && plyrInstance.fullscreen) {
-      plyrInstance.fullscreen.toggle();
     }
   }
 });
