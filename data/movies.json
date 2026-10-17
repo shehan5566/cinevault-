@@ -1,5 +1,43 @@
 [
   {
+    "id": "mov-1792214163766",
+    "title": "Rekhachithram (2025)",
+    "sinhalaTitle": "Rekhachithram (2025) (Subtitled)",
+    "year": 2025,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt32284154",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Drama",
+      "Mystery",
+      "Thriller"
+    ],
+    "director": "Jofin T. Chacko",
+    "cast": [
+      "Asif Ali",
+      "Anaswara Rajan",
+      "Manoj K. Jayan"
+    ],
+    "imdbRating": 7.8,
+    "personalRating": 7.8,
+    "notes": "",
+    "duration": "147 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTY3ZDgzNDQtZjMwZS00NDFmLTg2ZjMtNDhkMjE5NzJjMjMxXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792213953082-466931522.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792214161640-733251835.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-17T05:16:03.766Z"
+  },
+  {
     "id": "mov-1792213731739",
     "title": "Raayan (2024)",
     "sinhalaTitle": "Raayan (2024) (Subtitled)",
