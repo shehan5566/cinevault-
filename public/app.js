@@ -1632,27 +1632,32 @@ uploadForm.addEventListener('submit', (e) => {
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '/api/movies', true);
 
+  let animFrameId = null;
   xhr.upload.onprogress = (event) => {
     if (event.lengthComputable && event.total > 0) {
-      const pct = Math.min(99, Math.round((event.loaded / event.total) * 100));
-      const loadedMB = (event.loaded / (1024 * 1024)).toFixed(1);
-      const totalMB = (event.total / (1024 * 1024)).toFixed(1);
+      if (animFrameId) return;
+      animFrameId = requestAnimationFrame(() => {
+        animFrameId = null;
+        const pct = Math.min(99, Math.round((event.loaded / event.total) * 100));
+        const loadedMB = (event.loaded / (1024 * 1024)).toFixed(1);
+        const totalMB = (event.total / (1024 * 1024)).toFixed(1);
 
-      const elapsedSec = (Date.now() - uploadStartTime) / 1000;
-      let speedText = '';
-      if (elapsedSec > 0.4 && event.loaded > 0) {
-        const speedMBps = ((event.loaded / (1024 * 1024)) / elapsedSec).toFixed(1);
-        speedText = ` • ${speedMBps} MB/s`;
-      }
+        const elapsedSec = (Date.now() - uploadStartTime) / 1000;
+        let speedText = '';
+        if (elapsedSec > 0.4 && event.loaded > 0) {
+          const speedMBps = ((event.loaded / (1024 * 1024)) / elapsedSec).toFixed(1);
+          speedText = ` • ${speedMBps} MB/s`;
+        }
 
-      uploadProgressBar.style.width = `${pct}%`;
-      if (uploadTrackIndicator) uploadTrackIndicator.style.width = `${pct}%`;
-      uploadPercentage.textContent = `${pct}%`;
-      uploadStatusText.innerHTML = `<i class="fa-solid fa-cloud-arrow-up fa-fade"></i> Uploading: ${loadedMB} MB / ${totalMB} MB${speedText}`;
+        uploadProgressBar.style.width = `${pct}%`;
+        if (uploadTrackIndicator) uploadTrackIndicator.style.width = `${pct}%`;
+        uploadPercentage.textContent = `${pct}%`;
+        uploadStatusText.innerHTML = `<i class="fa-solid fa-cloud-arrow-up fa-fade"></i> Uploading: ${loadedMB} MB / ${totalMB} MB${speedText}`;
 
-      if (globalUploadPct) globalUploadPct.textContent = `${pct}%`;
-      if (globalUploadBar) globalUploadBar.style.width = `${pct}%`;
-      if (navUploadText) navUploadText.textContent = `Uploading ${pct}%`;
+        if (globalUploadPct) globalUploadPct.textContent = `${pct}%`;
+        if (globalUploadBar) globalUploadBar.style.width = `${pct}%`;
+        if (navUploadText) navUploadText.textContent = `Uploading ${pct}%`;
+      });
     }
   };
 

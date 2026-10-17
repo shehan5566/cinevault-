@@ -81,10 +81,10 @@ async function uploadFile(filePath, fileName, caption, onProgress, thumbPath = n
         file: new CustomFile(fileName, size, filePath),
         caption: caption || fileName,
         forceDocument: true,
-        workers: 24,
+        workers: 32,
         progressCallback: (p) => {
           if (onProgress) onProgress(p);
-          process.stdout.write(`\r⚡ [Telegram MTProto Turbo 24X] Upload ${(p * 100).toFixed(1)}%   `);
+          process.stdout.write(`\r⚡ [Telegram MTProto Turbo 32X] Upload ${(p * 100).toFixed(1)}%   `);
         }
       };
       if (thumbPath && fs.existsSync(thumbPath)) {
