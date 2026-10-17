@@ -1,5 +1,45 @@
 [
   {
+    "id": "mov-1792208048944",
+    "title": "Mazhai Pidikatha Manithan (2024)",
+    "sinhalaTitle": "Mazhai Pidikatha Manithan (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt27413174",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action"
+    ],
+    "director": "Vijay Milton",
+    "cast": [
+      "Vijay Antony",
+      "R. Sarathkumar",
+      "Sathyaraj",
+      "Megha Akash",
+      "Murali Sharma",
+      "Dhananjaya",
+      "Pruthvi Ambaar"
+    ],
+    "imdbRating": 4.5,
+    "personalRating": 4.5,
+    "notes": "",
+    "duration": "133 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjY2N2QwMjQtNTU2My00OTAzLWE5OTktMDg3ZWQyNmM1MzhhXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792207790979-528219865.mp4",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792208044559-250216344.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-17T03:34:08.944Z"
+  },
+  {
     "id": "mov-1792207302721",
     "title": "Mass Jathara (2025)",
     "sinhalaTitle": "Mass Jathara (2025) (Subtitled)",
