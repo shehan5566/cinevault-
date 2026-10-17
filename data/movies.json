@@ -1,5 +1,43 @@
 [
   {
+    "id": "mov-1792212560673",
+    "title": "Naa Saami Ranga (2024)",
+    "sinhalaTitle": "Naa Saami Ranga (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt23790602",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
+    "director": "Vijay Binni",
+    "cast": [
+      "Nagarjuna Akkineni",
+      "Allari Naresh",
+      "Raj Tarun"
+    ],
+    "imdbRating": 4.5,
+    "personalRating": 4.5,
+    "notes": "",
+    "duration": "150 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTQ4NjI4NjQtNDRiNC00ZGRiLWFhMjUtMmQ5ODljODVhMzUwXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792212320486-918708659.mp4",
+    "subtitleUrl": "",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-17T04:49:20.673Z"
+  },
+  {
     "id": "mov-1792211266013",
     "title": "Mr. Bachchan (2024)",
     "sinhalaTitle": "Mr. Bachchan (2024) (Subtitled)",
