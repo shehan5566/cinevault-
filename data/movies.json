@@ -1,5 +1,43 @@
 [
   {
+    "id": "mov-1792206664243",
+    "title": "Martin (2024)",
+    "sinhalaTitle": "Martin (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "English",
+    "type": "movie",
+    "imdbId": "nm0000217",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Drama",
+      "Thriller"
+    ],
+    "director": "A.P. Arjun",
+    "cast": [
+      "Dhruva Sarja",
+      "Vaibhavi Shandilya",
+      "Nikitin Dheer"
+    ],
+    "imdbRating": 2.1,
+    "personalRating": 2.1,
+    "notes": "",
+    "duration": "147 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BMzc2ZDA5ODctNzhmMC00ODQ3LWFlMzItYjZlZGFlMGNmMzRmXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792206440250-562418267.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792206660685-611085413.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-17T03:11:04.243Z"
+  },
+  {
     "id": "mov-1792206310961",
     "title": "Marco (2024)",
     "sinhalaTitle": "Marco (2024) (Subtitled)",
