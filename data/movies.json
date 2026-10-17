@@ -1,5 +1,42 @@
 [
   {
+    "id": "mov-1792209777348",
+    "title": "Mission: Chapter 1 (2024)",
+    "sinhalaTitle": "Mission: Chapter 1 (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt23752056",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Thriller"
+    ],
+    "director": "A.L. Vijay",
+    "cast": [
+      "Arun Vijay",
+      "Amy Jackson",
+      "Nimisha Sajayan"
+    ],
+    "imdbRating": 5.9,
+    "personalRating": 5.9,
+    "notes": "",
+    "duration": "144 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNjMxMWFhZjktODExNy00M2QxLTkxNDEtOGUzZTY3MDYzYjBhXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792209696738-980841878.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792209775020-135900626.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-17T04:02:57.348Z"
+  },
+  {
     "id": "mov-1792209488976",
     "title": "Miss You (2024)",
     "sinhalaTitle": "Miss You (2024) (Subtitled)",
