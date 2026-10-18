@@ -1,5 +1,45 @@
 [
   {
+    "id": "mov-1792317982597",
+    "title": "Zebra (2024)",
+    "sinhalaTitle": "Zebra (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt27757690",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Crime",
+      "Thriller"
+    ],
+    "director": "Eashvar Karthic",
+    "cast": [
+      "Satyadev",
+      "Dhanajaya",
+      "Satyadev Kancharana",
+      "Priya Bhavani Shankar",
+      "Dhananjaya"
+    ],
+    "imdbRating": 7,
+    "personalRating": 7,
+    "notes": "",
+    "duration": "164 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNDg4MTE2MWItODlhZS00NGVhLTg4M2EtOWVkMmE3YzZlM2QzXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792317885743-165999744.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792317980202-64618148.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-18T10:06:22.597Z"
+  },
+  {
     "id": "mov-1792317750811",
     "title": "Viswam (2024)",
     "sinhalaTitle": "Viswam (2024) (Subtitled)",
