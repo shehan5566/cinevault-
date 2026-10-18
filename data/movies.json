@@ -1,5 +1,46 @@
 [
   {
+    "id": "mov-1792317750811",
+    "title": "Viswam (2024)",
+    "sinhalaTitle": "Viswam (2024) (Subtitled)",
+    "year": 2024,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt28630710",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action"
+    ],
+    "director": "Sreenu Vaitla",
+    "cast": [
+      "Gopichand",
+      "Kavya Thapar",
+      "Jisshu Sengupta",
+      "Pragathi",
+      "Sunil",
+      "Naresh",
+      "Shaam",
+      "Mukesh Rishi"
+    ],
+    "imdbRating": 8.5,
+    "personalRating": 8.5,
+    "notes": "",
+    "duration": "155 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://images.moviebuff.com/504649cf-ec3f-4a4c-b849-f37d0971291a?w=1000",
+    "videoUrl": "/uploads/videos/video-1792317642048-264662213.mkv",
+    "subtitleUrl": "/uploads/subtitles/subtitle-1792317748199-341717042.vtt",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-18T10:02:30.811Z"
+  },
+  {
     "id": "mov-1792317366790",
     "title": "Vettaiyan (2024)",
     "sinhalaTitle": "Vettaiyan (2024) (Subtitled)",
