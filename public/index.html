@@ -583,11 +583,11 @@
       <form id="editMovieForm" class="upload-form">
         <input type="hidden" id="editMovieId">
 
-        <div class="edit-modal-layout" style="display: flex; gap: 24px; margin-bottom: 20px;">
+        <div class="edit-modal-layout">
           <!-- Left Column: Poster Preview & Change -->
-          <div class="edit-poster-column" style="flex: 0 0 180px; text-align: center;">
-            <div class="edit-poster-preview-box" style="width: 180px; aspect-ratio: 2/3; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 6px 20px rgba(0,0,0,0.6); margin-bottom: 12px; background: #121218;">
-              <img id="editPosterPreviewImg" src="" alt="Poster Preview" style="width: 100%; height: 100%; object-fit: cover;">
+          <div class="edit-poster-column">
+            <div class="edit-poster-preview-box">
+              <img id="editPosterPreviewImg" src="" alt="Poster Preview">
             </div>
             <label class="btn btn-secondary btn-sm btn-block" style="cursor: pointer;">
               <i class="fa-solid fa-upload"></i> Change Poster
@@ -596,7 +596,7 @@
           </div>
 
           <!-- Right Column: Form Fields -->
-          <div class="edit-fields-column" style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+          <div class="edit-fields-column">
             <div class="form-row">
               <div class="input-group" style="flex: 2;">
                 <label><i class="fa-solid fa-film"></i> Movie Title</label>

@@ -1794,37 +1794,717 @@ textarea {
   margin-bottom: 6px;
 }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 992px) {
+}
+
+/* EDIT MOVIE MODAL BASE STYLES */
+.edit-modal-layout {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.edit-poster-column {
+  flex: 0 0 180px;
+  text-align: center;
+}
+
+.edit-poster-preview-box {
+  width: 180px;
+  aspect-ratio: 2/3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  margin-bottom: 12px;
+  background: #121218;
+}
+
+.edit-poster-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-fields-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* LIST VIEW LAYOUT (DESKTOP & MOBILE) */
+.movies-grid.list-view {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.movies-grid.list-view .movie-card {
+  aspect-ratio: unset !important;
+  height: auto !important;
+  display: flex;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  gap: 14px;
+  align-items: center;
+}
+
+.movies-grid.list-view .movie-poster-wrap {
+  width: 72px;
+  min-width: 72px;
+  height: 100px;
+  aspect-ratio: 2/3;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.movies-grid.list-view .poster-bottom-title {
+  position: static;
+  background: none;
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: normal;
+  color: #fff;
+}
+
+/* ==========================================================================
+   MOBILE & RESPONSIVE DESIGN SYSTEM (CineVault.LK)
+   ========================================================================== */
+
+/* Universal Touch & Mobile Physics */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+button, a, select, input, .movie-card, .cs-server-pill, .cat-pill-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Smooth Horizontal Touch Carousels */
+.nav-links,
+.cs-server-bar,
+.cs-cast-list,
+.cs-season-tabs {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* TABLET & MEDIUM SCREENS (<= 1024px) */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 18px 20px 48px;
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 10px;
+  }
+
   .cs-detail-body {
-    grid-template-columns: 1fr;
+    padding: 20px 24px 36px;
   }
 
-  .cs-sidebar {
-    display: none;
-  }
-
-  .nav-links {
-    display: none;
+  .video-wrapper {
+    height: 480px;
+    min-height: 400px;
+    max-height: 580px;
   }
 }
 
-@media (max-width: 600px) {
+/* SMARTPHONES & MOBILE SCREENS (<= 768px) */
+@media (max-width: 768px) {
+  /* TOP NAVBAR ON MOBILE */
   .navbar {
-    padding: 10px 14px;
+    padding: 10px 14px 8px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
+  /* Make nav-left contents direct flex items of navbar on mobile */
+  .nav-left {
+    display: contents !important;
+  }
+
+  .brand-logo {
+    order: 1;
+    font-size: 1.25rem;
+    gap: 8px;
+  }
+
+  .brand-logo i {
+    font-size: 1.2rem;
+  }
+
+  .nav-right {
+    order: 2;
+    margin-left: auto;
+    gap: 8px;
+  }
+
+  #btnUploadModal {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(229, 9, 20, 0.4);
+  }
+
+  .user-profile {
+    padding-left: 8px;
+    gap: 6px;
+    border-left: 1px solid var(--bg-glass-border);
+  }
+
+  /* Hide verbose text inside avatar badge on mobile */
+  .user-profile .user-info {
+    display: none !important;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  /* HORIZONTALLY SWIPEABLE CATEGORY PILLS BAR ON MOBILE */
+  .nav-links {
+    order: 3;
+    display: flex !important;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 6px;
+    padding: 4px 0 2px;
+    margin-top: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-link.active {
+    background: var(--accent-crimson);
+    border-color: var(--accent-crimson);
+    box-shadow: 0 2px 8px rgba(229, 9, 20, 0.4);
+  }
+
+  /* FILTER TOOLBAR ON MOBILE */
   .main-content {
-    padding: 14px;
+    padding: 12px 10px 48px;
+  }
+
+  .filter-toolbar {
+    flex-direction: column;
+    padding: 10px 12px;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .search-box {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .search-box input {
+    padding: 10px 12px 10px 38px;
+    font-size: 0.88rem;
+  }
+
+  .filter-controls {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .filter-select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .view-toggle {
+    grid-column: 1 / -1;
+    display: flex;
+    width: 100%;
+  }
+
+  .view-btn {
+    flex: 1;
+    text-align: center;
+    padding: 7px;
+    font-size: 0.8rem;
+  }
+
+  /* 2-COLUMN MOVIE GRID ON MOBILE (FLUID & TOUCH-RESPONSIVE) */
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .movie-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .movie-card:active {
+    transform: scale(0.97);
+  }
+
+  .poster-corner-badges {
+    top: 5px;
+    left: 5px;
+  }
+
+  .badge-quality-corner {
+    font-size: 0.6rem;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  .imdb-rating-badge {
+    top: 5px;
+    right: 5px;
+    font-size: 0.68rem;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  .poster-bottom-title {
+    font-size: 0.74rem;
+    padding: 20px 6px 6px;
+    line-height: 1.25;
+  }
+
+  /* ==========================================
+     CINESUBZ MOVIE PLAYER & DETAILS MODAL
+     ========================================== */
+  #playerModal {
+    overflow-x: hidden;
+  }
+
+  /* Hide duplicate category tabs inside player modal header on mobile */
+  #playerModal .cs-modal-navbar .nav-links {
+    display: none !important;
+  }
+
+  #playerModal .cs-modal-navbar {
+    padding: 10px 12px;
+  }
+
+  #closePlayerModalBtn {
+    font-size: 0.78rem;
+    padding: 6px 11px;
+    background: rgba(229, 9, 20, 0.2);
+    border: 1px solid rgba(229, 9, 20, 0.5);
+    color: #fff;
+  }
+
+  .cs-page-inner-container {
+    padding: 8px 10px 32px;
+  }
+
+  .cs-breadcrumb-bar {
+    padding: 6px 2px 10px;
+    font-size: 0.72rem;
+    gap: 6px;
+  }
+
+  .cs-bc-current {
+    max-width: 60%;
+  }
+
+  /* 16:9 RESPONSIVE CINEMATIC VIDEO PLAYER (NO VERTICAL STRETCHING) */
+  .cs-video-container {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100% !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    aspect-ratio: 16 / 9 !important;
+    background: #000;
+  }
+
+  .plyr {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    border-radius: 0;
+  }
+
+  .plyr video,
+  #mainVideoPlayer {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    object-fit: contain !important;
+  }
+
+  #youtubeTrailerIframe {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+  }
+
+  .cs-big-play-btn {
+    width: 58px;
+    height: 58px;
+    font-size: 1.6rem;
+    padding-left: 4px;
+  }
+
+  .cs-video-floating-controls {
+    bottom: 10px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .cs-float-circle-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+
+  /* RESPONSIVE SUBTITLE TYPOGRAPHY FOR PHONES */
+  ::cue {
+    font-size: clamp(0.95rem, 3.8vw, 1.25rem) !important;
+    line-height: 1.3 !important;
+    text-shadow: 1px 1px 3px #000000, -1px -1px 3px #000000, 1px -1px 3px #000000, -1px 1px 3px #000000, 0 0 8px #000000 !important;
+  }
+
+  .plyr__captions {
+    padding: 4px 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .plyr__captions .plyr__caption {
+    font-size: clamp(0.95rem, 3.8vw, 1.25rem) !important;
+    line-height: 1.3 !important;
+    text-shadow: 1px 1px 3px #000000, -1px -1px 3px #000000, 1px -1px 3px #000000, -1px 1px 3px #000000, 0 0 8px #000000 !important;
+  }
+
+  /* HORIZONTALLY SCROLLABLE SERVER PILLS */
+  .cs-server-bar {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 8px 10px;
+    gap: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background: #09090d;
+  }
+
+  .cs-server-bar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .cs-server-pill {
+    min-width: 105px;
+    padding: 6px 12px;
+    flex-shrink: 0;
+  }
+
+  .cs-pill-sub {
+    font-size: 0.65rem;
+  }
+
+  .cs-pill-main {
+    font-size: 0.82rem;
+  }
+
+  /* MOVIE DETAILS BODY & INFO CARD (SCREENSHOT ACCURATE) */
+  .cs-detail-body {
+    padding: 14px 4px 36px;
   }
 
   .cs-info-box {
-    flex-direction: column;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 16px 12px !important;
+    gap: 14px !important;
+    border-radius: 10px;
   }
 
+  /* Preserve authentic 2:3 vertical poster portrait */
   .cs-poster-thumb {
+    width: 135px !important;
+    max-width: 135px !important;
+    aspect-ratio: 2/3 !important;
+    height: auto !important;
+    border-radius: 10px;
+    margin: 0 auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85);
+  }
+
+  .cs-info-details {
     width: 100%;
-    aspect-ratio: 16/9;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cs-info-details h1 {
+    font-size: 1.25rem !important;
+    line-height: 1.35;
+  }
+
+  .cs-rating-stars {
+    justify-content: center;
+  }
+
+  .cs-admin-actions {
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .cs-admin-actions .btn {
+    flex: 1 1 calc(50% - 6px);
+    font-size: 0.8rem;
+    padding: 8px 10px;
+    justify-content: center;
+  }
+
+  .category-assign-box {
+    align-items: center;
+  }
+
+  .category-pills-row {
+    justify-content: center;
+  }
+
+  .cat-pill-btn {
+    padding: 5px 11px;
+    font-size: 0.78rem;
+  }
+
+  /* HORIZONTAL CAST CAROUSEL (EXACT 10 CAST MEMBERS) */
+  .cs-cast-section {
+    margin-bottom: 20px;
+  }
+
+  .cs-cast-list {
+    gap: 10px;
+    padding: 6px 14px 12px 2px;
+  }
+
+  .cs-cast-card {
+    flex: 0 0 88px !important;
+    min-width: 88px !important;
+    max-width: 88px !important;
+  }
+
+  .cs-cast-avatar {
+    width: 88px !important;
+    height: 112px !important;
+    border-radius: 10px;
+  }
+
+  .cs-cast-name {
+    font-size: 0.72rem;
+  }
+
+  /* DOWNLOAD BUTTON STACK ON MOBILE */
+  .cinesubz-download-section {
+    margin-top: 16px;
+  }
+
+  .cs-download-header {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+
+  .download-buttons-stack {
+    padding: 10px;
+  }
+
+  .movie-download-button {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .movie-download-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 1rem;
+    margin-right: 8px;
+  }
+
+  .movie-download-type {
+    font-size: 0.88rem;
+  }
+
+  .movie-download-meta {
+    font-size: 0.74rem;
+  }
+
+  /* TV SERIES EPISODES GRID */
+  .cs-season-tabs {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .cs-episode-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  /* MODALS & FORMS ON MOBILE */
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 20px 14px !important;
+    max-height: 94vh !important;
+    border-radius: 12px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .modal-header p {
+    font-size: 0.78rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .upload-mode-tabs {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .upload-mode-tab {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .upload-dropzone {
+    padding: 16px 10px;
+  }
+
+  .upload-dropzone h4 {
+    font-size: 0.92rem;
+  }
+
+  .upload-dropzone p {
+    font-size: 0.76rem;
+  }
+
+  .btn-lg {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* EDIT MOVIE MODAL LAYOUT ON MOBILE */
+  .edit-modal-layout {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  .edit-poster-column {
+    flex: 0 0 auto !important;
+    width: 135px !important;
+    margin: 0 auto !important;
+  }
+
+  .edit-poster-preview-box {
+    width: 135px !important;
+    margin: 0 auto 10px !important;
+  }
+
+  .edit-fields-column {
+    width: 100% !important;
+  }
+
+  .cs-modal-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .auth-card {
+    padding: 24px 18px;
+    max-width: 94vw;
+  }
+
+  .seek-overlay-badge {
+    bottom: 50px;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+}
+
+/* EXTRA SMALL MOBILE SCREENS (<= 380px) */
+@media (max-width: 380px) {
+  .brand-logo {
+    font-size: 1.15rem;
+  }
+
+  #btnUploadModal {
+    padding: 5px 9px;
+    font-size: 0.74rem;
+  }
+
+  .filter-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .movies-grid {
+    gap: 8px !important;
+  }
+
+  .cs-cast-card {
+    flex: 0 0 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+  }
+
+  .cs-cast-avatar {
+    width: 80px !important;
+    height: 102px !important;
   }
 }
 
