@@ -1,5 +1,46 @@
 [
   {
+    "id": "mov-1792315396632",
+    "title": "Thug Life (2025)",
+    "sinhalaTitle": "Thug Life (2025) (Subtitled)",
+    "year": 2025,
+    "quality": "WEB-DL",
+    "language": "Tamil",
+    "type": "movie",
+    "imdbId": "tt23398540",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
+    "director": "Mani Ratnam",
+    "cast": [
+      "Kamal Haasan",
+      "YouTube",
+      "Silambarasan TR",
+      "Aishwarya Lekshmi",
+      "Ali Fazal",
+      "Sanjana"
+    ],
+    "imdbRating": 4.1,
+    "personalRating": 4.1,
+    "notes": "",
+    "duration": "165 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTY5NTM5N2EtMzNmZS00MzYwLWFmYzItMWY4NGI1ZjI5NzUwXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792315201474-624721752.mp4",
+    "subtitleUrl": "",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-18T09:23:16.632Z"
+  },
+  {
     "id": "mov-1792314753713",
     "title": "The Family Star (2024)",
     "sinhalaTitle": "The Family Star (2024) (Subtitled)",
