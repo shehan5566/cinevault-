@@ -1,5 +1,44 @@
 [
   {
+    "id": "mov-1792386842951",
+    "title": "Acid (2023)",
+    "sinhalaTitle": "Acid (2023) (Subtitled)",
+    "year": 2023,
+    "quality": "WEB-DL",
+    "language": "English",
+    "type": "movie",
+    "imdbId": "tt17569526",
+    "seasons": null,
+    "hasSinhalaSub": true,
+    "genre": [
+      "Drama",
+      "Sci-Fi"
+    ],
+    "director": "Just Philippot",
+    "cast": [
+      "Guillaume Canet",
+      "Laetitia Dosch",
+      "Patience Munchenbach",
+      "Marie Jung",
+      "Martin Verset"
+    ],
+    "imdbRating": 5.1,
+    "personalRating": 5.1,
+    "notes": "",
+    "duration": "99 min | 2.1 GB",
+    "fileSize": "2.0 GB",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BY2EzN2IwYjUtOWVkMi00NmVhLTgxZjgtY2Q2YjYxNTcxZDAyXkEyXkFqcGc@._V1_FMjpg_UX2500_.jpg",
+    "videoUrl": "/uploads/videos/video-1792386607585-232291886.mp4",
+    "subtitleUrl": "",
+    "telegramFileId": null,
+    "telegramMsgId": null,
+    "watched": false,
+    "isFavorite": false,
+    "inWatchlist": true,
+    "progressSeconds": 0,
+    "addedDate": "2026-10-19T05:14:02.951Z"
+  },
+  {
     "id": "mov-1792386421579",
     "title": "A Working Man (2025)",
     "sinhalaTitle": "A Working Man (2025) (Subtitled)",
